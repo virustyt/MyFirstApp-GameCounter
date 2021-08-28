@@ -39,13 +39,15 @@ class NewGameViewController: UIViewController {
         view.addSubview(playerTableViewController.tableView)
         self.addChild(playerTableViewController)
         
-        let heightOfTableView = traitCollection.horizontalSizeClass == .compact ? (270/812)*UIScreen.main.bounds.height : (270/812)*UIScreen.main.bounds.width
+        let heightOfTableView = CGFloat(GameModel.shared.allPlayers.count) * playerTableViewController.tableView.rowHeight
+        let constraintHeightOfTableView = playerTableViewController.tableView.heightAnchor.constraint(equalToConstant: heightOfTableView)
+        constraintHeightOfTableView.priority = .defaultLow
         
         NSLayoutConstraint.activate([
             playerTableViewController.tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 50),
             playerTableViewController.tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
             playerTableViewController.tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
-            playerTableViewController.tableView.heightAnchor.constraint(equalToConstant: heightOfTableView),
+            constraintHeightOfTableView,
             
             StartGameButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -65),
             StartGameButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -57,7 +59,7 @@ class NewGameViewController: UIViewController {
     }
     
     @objc private func cancelBarButtonItemHandler () {
-        
+
     }
     
     private func configureNavigationBar(){

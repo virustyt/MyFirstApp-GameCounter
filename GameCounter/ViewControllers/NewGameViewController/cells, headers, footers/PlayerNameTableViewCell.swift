@@ -15,12 +15,13 @@ class PlayerNameTableViewCell: UITableViewCell {
         fatalError("init?(coder: NSCoder) is impossible to execute - This project has no stiryboards.")
     }
     
-    private lazy var deleteButton: UIButton =
+    lazy var deleteButton: UIButton =
         {
-          let buttton = UIButton()
-            buttton.translatesAutoresizingMaskIntoConstraints = false
-            buttton.setImage(UIImage(named: "Add"), for: .normal)
-            return buttton
+            let button = UIButton()
+            button.translatesAutoresizingMaskIntoConstraints = false
+            button.setImage(UIImage(named: "icon_Delete"), for: .normal)
+            button.imageView?.sizeToFit()
+            return button
         }()
 
     lazy var playerNameLabel: UILabel =
@@ -45,7 +46,7 @@ class PlayerNameTableViewCell: UITableViewCell {
             let stack = UIStackView()
             stack.translatesAutoresizingMaskIntoConstraints = false
             stack.axis = .horizontal
-            //stack.addArrangedSubview(deleteButton)
+            stack.addArrangedSubview(deleteButton)
             stack.addArrangedSubview(playerNameLabel)
             stack.addArrangedSubview(sortIconImageView)
             stack.alignment = .center
@@ -62,7 +63,7 @@ class PlayerNameTableViewCell: UITableViewCell {
         addSubview(stackView)
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: self.topAnchor),
-            stackView.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor,constant: 16),
+            stackView.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: 19),
             stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor,constant: -21),
             stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
             
@@ -70,6 +71,4 @@ class PlayerNameTableViewCell: UITableViewCell {
             sortIconImageView.widthAnchor.constraint(equalToConstant: 335/18)
         ])
     }
-
-    
 }

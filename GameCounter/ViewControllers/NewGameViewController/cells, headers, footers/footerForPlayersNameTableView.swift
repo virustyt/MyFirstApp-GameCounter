@@ -12,9 +12,20 @@ class footerForPlayersNameTableView: UITableViewHeaderFooterView {
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
-        let cell = AddPlayerTableViewCell(frame: self.frame)
-        contentView.backgroundColor = UIColor(red: 59/255, green: 59/255, blue: 59/255, alpha: 1)
-        contentView.addSubview(cell)
+        
+        let universalSubview = UniversalView(frame: frame)
+        universalSubview.translatesAutoresizingMaskIntoConstraints = false
+        universalSubview.leftButton.setImage(UIImage(named: "Add"), for: .normal)
+        universalSubview.playerNameLabel.text = "Add player"
+        universalSubview.sortIconImageView.image = nil
+        
+        addSubview(universalSubview)
+        NSLayoutConstraint.activate([
+            universalSubview.topAnchor.constraint(equalTo: self.topAnchor),
+            universalSubview.leadingAnchor.constraint(equalTo: self.leadingAnchor,constant: -1),
+            universalSubview.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            universalSubview.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+        ])
     }
     
     required init?(coder: NSCoder) {

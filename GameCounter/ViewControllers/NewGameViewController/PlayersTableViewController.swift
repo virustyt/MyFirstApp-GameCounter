@@ -18,9 +18,11 @@ class PlayersTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.rowHeight = 59.0
+        
         tableView.register(PlayerNameTableViewCell.self, forCellReuseIdentifier: Identifiers.cell.rawValue)
         tableView.register(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: Identifiers.header.rawValue)
         tableView.register(footerForPlayersNameTableView.self, forHeaderFooterViewReuseIdentifier: Identifiers.footer.rawValue)
+        
         tableView.layer.cornerRadius = 15
         tableView.backgroundColor = UIColor(red: 59/255, green: 59/255, blue: 59/255, alpha: 1)
         tableView.isEditing = true
@@ -33,29 +35,38 @@ class PlayersTableViewController: UITableViewController {
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.cell.rawValue, for: indexPath)
-                as? PlayerNameTableViewCell else { fatalError("Cell with identifyer \(Identifiers.cell.rawValue) does noy exist.") }
-        cell.backgroundColor = UIColor(red: 59/255, green: 59/255, blue: 59/255, alpha: 1)
         let playerName = GameModel.shared.allPlayers[indexPath.item]
-        cell.playerNameLabel.text = playerName
-        cell.deleteButton.addTarget(self, action: #selector(deleteButtomTapped), for: .touchUpInside)
-        cell.deleteButton.layer.setValue(playerName, forKey: "playerName")
+        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.cell.rawValue, for: indexPath) as? PlayerNameTableViewCell
+        else { fatalError("Cell with identifyer \(Identifiers.cell.rawValue) does noy exist.") }
+        
+        let universalView = getUniversalView(view: cell as UIView)
+        universalView.playerNameLabel.text = playerName
+        universalView.leftButton.layer.setValue(playerName, forKey: "playerName")
+        universalView.leftButton.addTarget(self, action: #selector(deleteButtomTapped), for: .touchUpInside)
+
         return cell
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: Identifiers.header.rawValue)
         else { fatalError("Header with udentifyer \(Identifiers.header.rawValue) does noy exist.") }
+        
         header.textLabel?.text = "Players"
         header.textLabel?.font = UIFont(name: "nunito-extrabold", size: 16)
         header.textLabel?.textColor = UIColor(red: 0.922, green: 0.922, blue: 0.961, alpha: 0.6)
         header.contentView.backgroundColor = UIColor(red: 59/255, green: 59/255, blue: 59/255, alpha: 1)
+        
         return header
     }
     
     override func tableView(_ tableView: UITableView, viewForFooterInSection section: Int) -> UIView? {
         guard let footer = tableView.dequeueReusableHeaderFooterView(withIdentifier: Identifiers.footer.rawValue)
         else { fatalError("Header with udentifyer \(Identifiers.footer.rawValue) does noy exist.") }
+        
+        let universalView = getUniversalView(view: footer as UIView)
+        universalView.leftButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
+        
         return footer
     }
     
@@ -104,6 +115,13 @@ class PlayersTableViewController: UITableViewController {
         }
     }
     
+    private func getUniversalView(view: UIView) -> UniversalView {
+        let universalSubviewArray = view.subviews.filter{ $0 is UniversalView}
+        if universalSubviewArray.count != 0 {
+            return universalSubviewArray[0] as! UniversalView
+        }
+        else {fatalError("View has no UniversalView in subviews.")}
+    }
     
     @objc private func deleteButtomTapped(sender: UIButton){
         guard let playerName = sender.layer.value(forKey: "playerName") as? String,
@@ -114,13 +132,8 @@ class PlayersTableViewController: UITableViewController {
         tableView.deleteRows(at: [IndexPath(item: indexOfPlayerName, section: 0)], with: .automatic)
     }
     
-//    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-//        let cellSubviews = cell.subviews.sorted{$0.frame.origin.x > $1.frame.origin.x}
-//        guard let image = cellSubviews[0].subviews[0] as? UIImageView else {return}
-//        if #available(iOS 13.0, *) {
-//            image.image = UIImage(named: "humburger")
-//        } else {
-//            // Fallback on earlier versions
-//        }
-//    }
+    @objc private func addButtonTapped(){
+        guard let tableViewControllerParentController = parent else {return}
+        tableViewControllerParentController.navigationController?.pushViewController(AddPlayerViewController(), animated: true)
+    }
 }

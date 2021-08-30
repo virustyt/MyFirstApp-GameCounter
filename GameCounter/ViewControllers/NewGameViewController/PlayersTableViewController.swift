@@ -22,6 +22,7 @@ class PlayersTableViewController: UITableViewController {
         tableView.register(PlayerNameTableViewCell.self, forCellReuseIdentifier: Identifiers.cell.rawValue)
         tableView.register(UITableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: Identifiers.header.rawValue)
         tableView.register(footerForPlayersNameTableView.self, forHeaderFooterViewReuseIdentifier: Identifiers.footer.rawValue)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell2")
         
         tableView.layer.cornerRadius = 15
         tableView.backgroundColor = UIColor(red: 59/255, green: 59/255, blue: 59/255, alpha: 1)
@@ -39,12 +40,17 @@ class PlayersTableViewController: UITableViewController {
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: Identifiers.cell.rawValue, for: indexPath) as? PlayerNameTableViewCell
         else { fatalError("Cell with identifyer \(Identifiers.cell.rawValue) does noy exist.") }
-        
         let universalView = getUniversalView(view: cell as UIView)
-        universalView.playerNameLabel.text = playerName
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineHeightMultiple = 0.88
+        universalView.playerNameLabel.attributedText = NSMutableAttributedString(string: playerName,
+                                                                                 attributes: [NSAttributedString.Key.kern: 0.15,
+                                                                                              NSAttributedString.Key.paragraphStyle: paragraphStyle,
+                                                                                              .font: UIFont(name: "Nunito-ExtraBold", size: 20) ?? UIFont()])
+        
         universalView.leftButton.layer.setValue(playerName, forKey: "playerName")
         universalView.leftButton.addTarget(self, action: #selector(deleteButtomTapped), for: .touchUpInside)
-
         return cell
     }
     
@@ -81,9 +87,7 @@ class PlayersTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool { true }
     
-    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
-        .none
-    }
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle { .none }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
@@ -134,6 +138,8 @@ class PlayersTableViewController: UITableViewController {
     
     @objc private func addButtonTapped(){
         guard let tableViewControllerParentController = parent else {return}
+        tableViewControllerParentController.navigationItem.backBarButtonItem = UIBarButtonItem(title: "Back", style: .plain, target: nil, action: nil)
+        tableViewControllerParentController.navigationItem.backBarButtonItem?.tintColor = UIColor.navigationBarButtonTextColor
         tableViewControllerParentController.navigationController?.pushViewController(AddPlayerViewController(), animated: true)
     }
 }

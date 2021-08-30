@@ -34,12 +34,39 @@ class NewGameViewController: UIViewController {
         view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         
         configureNavigationBar()
+        appendSubvies()
+        configureConstarits()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        playerTableViewController.tableView.reloadData()
+    }
+    
+    @objc private func cancelBarButtonItemHandler () {
+
+    }
+    
+    private func configureNavigationBar(){
+        navigationItem.largeTitleDisplayMode = .automatic
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.white, .font: UIFont(name: "nunito-extrabold", size: 36) ?? UIFont()]
         
+        navigationItem.title = "Game Counter"
+        
+        let cancelBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelBarButtonItemHandler))
+        navigationItem.leftBarButtonItem = cancelBarButtonItem
+        navigationItem.leftBarButtonItem?.isEnabled = false
+        navigationItem.leftBarButtonItem?.tintColor = UIColor.clear
+    }
+    
+    private func appendSubvies(){
         view.addSubview(StartGameButton)
         view.addSubview(playerTableViewController.tableView)
         self.addChild(playerTableViewController)
-        
-        let heightOfTableView = CGFloat(GameModel.shared.allPlayers.count) * playerTableViewController.tableView.rowHeight
+    }
+    
+    private func configureConstarits(){
+        let heightOfTableView = traitCollection.verticalSizeClass == .regular ? UIScreen.main.bounds.height / 3 : UIScreen.main.bounds.width / 3
         let constraintHeightOfTableView = playerTableViewController.tableView.heightAnchor.constraint(equalToConstant: heightOfTableView)
         constraintHeightOfTableView.priority = .defaultLow
         
@@ -56,23 +83,6 @@ class NewGameViewController: UIViewController {
 
             StartGameButton.topAnchor.constraint(greaterThanOrEqualTo: playerTableViewController.tableView.bottomAnchor, constant: 20)
         ])
-    }
-    
-    @objc private func cancelBarButtonItemHandler () {
-
-    }
-    
-    private func configureNavigationBar(){
-        navigationItem.largeTitleDisplayMode = .automatic
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationBar.largeTitleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.white]
-        
-        navigationItem.title = "Game Counter"
-        
-        let cancelBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelBarButtonItemHandler))
-        navigationItem.leftBarButtonItem = cancelBarButtonItem
-        navigationItem.leftBarButtonItem?.isEnabled = false
-        navigationItem.leftBarButtonItem?.tintColor = UIColor.clear
     }
 }
 

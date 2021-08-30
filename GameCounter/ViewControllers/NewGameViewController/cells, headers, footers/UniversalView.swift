@@ -26,7 +26,6 @@ class UniversalView: UIView {
           let label = UILabel()
             label.translatesAutoresizingMaskIntoConstraints = false
             label.textColor = UIColor.white
-            label.font = UIFont(name: "nunito-extrabold", size: 20)
             return label
         }()
 

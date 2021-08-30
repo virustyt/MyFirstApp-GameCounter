@@ -16,7 +16,15 @@ class footerForPlayersNameTableView: UITableViewHeaderFooterView {
         let universalSubview = UniversalView(frame: frame)
         universalSubview.translatesAutoresizingMaskIntoConstraints = false
         universalSubview.leftButton.setImage(UIImage(named: "Add"), for: .normal)
-        universalSubview.playerNameLabel.text = "Add player"
+        
+        
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.lineHeightMultiple = 1.1
+        universalSubview.playerNameLabel.attributedText = NSMutableAttributedString(string: "Add player", attributes:
+                                                                                        [NSAttributedString.Key.kern: 0.15,
+                                                                                         NSAttributedString.Key.paragraphStyle: paragraphStyle,
+                                                                                         .font: UIFont(name: "Nunito-SemiBold", size: 16) ?? UIFont()])
+
         universalSubview.sortIconImageView.image = nil
         
         addSubview(universalSubview)

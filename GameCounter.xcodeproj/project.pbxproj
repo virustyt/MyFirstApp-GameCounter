@@ -14,7 +14,11 @@
 		8432A11726D7D20B00845006 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8432A11526D7D20B00845006 /* LaunchScreen.storyboard */; };
 		8432A11F26D7DE9400845006 /* PlayersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8432A11E26D7DE9400845006 /* PlayersTableViewController.swift */; };
 		8432A12226D7E61000845006 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8432A12126D7E61000845006 /* Storyboard.storyboard */; };
+		84548BB626DCCCA600399D04 /* TextStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84548BB526DCCCA600399D04 /* TextStyles.swift */; };
+		84548BB926DCCE6900399D04 /* AppColorsUIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84548BB826DCCE6900399D04 /* AppColorsUIColorExtension.swift */; };
+		84548BBB26DCCEED00399D04 /* AppFontsUIFontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84548BBA26DCCEED00399D04 /* AppFontsUIFontExtension.swift */; };
 		846A144C26DB9A4D0069F766 /* UniversalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846A144B26DB9A4D0069F766 /* UniversalView.swift */; };
+		846A144E26DBD7CB0069F766 /* AddPlayerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846A144D26DBD7CB0069F766 /* AddPlayerTextField.swift */; };
 		848C997126DA554500E8914D /* footerForPlayersNameTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848C997026DA554500E8914D /* footerForPlayersNameTableView.swift */; };
 		84FE9C2B26D8D4B600419838 /* nunito-semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84FE9C2926D8D4B600419838 /* nunito-semibold.ttf */; };
 		84FE9C2C26D8D4B600419838 /* nunito-extrabold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84FE9C2A26D8D4B600419838 /* nunito-extrabold.ttf */; };
@@ -33,7 +37,11 @@
 		8432A11826D7D20B00845006 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8432A11E26D7DE9400845006 /* PlayersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersTableViewController.swift; sourceTree = "<group>"; };
 		8432A12126D7E61000845006 /* Storyboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
+		84548BB526DCCCA600399D04 /* TextStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStyles.swift; sourceTree = "<group>"; };
+		84548BB826DCCE6900399D04 /* AppColorsUIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColorsUIColorExtension.swift; sourceTree = "<group>"; };
+		84548BBA26DCCEED00399D04 /* AppFontsUIFontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFontsUIFontExtension.swift; sourceTree = "<group>"; };
 		846A144B26DB9A4D0069F766 /* UniversalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniversalView.swift; sourceTree = "<group>"; };
+		846A144D26DBD7CB0069F766 /* AddPlayerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlayerTextField.swift; sourceTree = "<group>"; };
 		848C997026DA554500E8914D /* footerForPlayersNameTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = footerForPlayersNameTableView.swift; sourceTree = "<group>"; };
 		84FE9C2926D8D4B600419838 /* nunito-semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "nunito-semibold.ttf"; sourceTree = "<group>"; };
 		84FE9C2A26D8D4B600419838 /* nunito-extrabold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "nunito-extrabold.ttf"; sourceTree = "<group>"; };
@@ -72,7 +80,7 @@
 		8432A10926D7D20500845006 /* GameCounter */ = {
 			isa = PBXGroup;
 			children = (
-				84FE9C2726D8D22300419838 /* fonts */,
+				84548BB726DCCCB800399D04 /* graficalDesign */,
 				8432A12026D7DE9A00845006 /* ViewControllers */,
 				8432A10A26D7D20500845006 /* AppDelegate.swift */,
 				8432A10C26D7D20500845006 /* SceneDelegate.swift */,
@@ -94,6 +102,25 @@
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
+		84548BB726DCCCB800399D04 /* graficalDesign */ = {
+			isa = PBXGroup;
+			children = (
+				84FE9C2726D8D22300419838 /* fonts */,
+				84548BB526DCCCA600399D04 /* TextStyles.swift */,
+				84548BB826DCCE6900399D04 /* AppColorsUIColorExtension.swift */,
+				84548BBA26DCCEED00399D04 /* AppFontsUIFontExtension.swift */,
+			);
+			path = graficalDesign;
+			sourceTree = "<group>";
+		};
+		846A144F26DBD7D00069F766 /* customViews */ = {
+			isa = PBXGroup;
+			children = (
+				846A144D26DBD7CB0069F766 /* AddPlayerTextField.swift */,
+			);
+			path = customViews;
+			sourceTree = "<group>";
+		};
 		848C997226DA559B00E8914D /* NewGameViewController */ = {
 			isa = PBXGroup;
 			children = (
@@ -108,6 +135,7 @@
 			isa = PBXGroup;
 			children = (
 				84FE9C3526D952F400419838 /* AddPlayerViewController.swift */,
+				846A144F26DBD7D00069F766 /* customViews */,
 			);
 			path = AddPlayerViewController;
 			sourceTree = "<group>";
@@ -212,10 +240,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				84FE9C2E26D8EA4D00419838 /* GameModel.swift in Sources */,
+				84548BB626DCCCA600399D04 /* TextStyles.swift in Sources */,
+				84548BBB26DCCEED00399D04 /* AppFontsUIFontExtension.swift in Sources */,
 				846A144C26DB9A4D0069F766 /* UniversalView.swift in Sources */,
+				846A144E26DBD7CB0069F766 /* AddPlayerTextField.swift in Sources */,
 				8432A11F26D7DE9400845006 /* PlayersTableViewController.swift in Sources */,
 				8432A10F26D7D20500845006 /* NewGameViewController.swift in Sources */,
 				848C997126DA554500E8914D /* footerForPlayersNameTableView.swift in Sources */,
+				84548BB926DCCE6900399D04 /* AppColorsUIColorExtension.swift in Sources */,
 				8432A10B26D7D20500845006 /* AppDelegate.swift in Sources */,
 				8432A10D26D7D20500845006 /* SceneDelegate.swift in Sources */,
 				84FE9C3626D952F400419838 /* AddPlayerViewController.swift in Sources */,

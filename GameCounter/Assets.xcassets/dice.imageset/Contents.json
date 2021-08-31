@@ -1,12 +1,11 @@
 {
   "images" : [
     {
-      "filename" : "icon_Delete_svg@3x.png",
+      "filename" : "icon_Dice.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "icon_Delete_svg@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },

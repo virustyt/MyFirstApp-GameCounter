@@ -10,24 +10,28 @@ import UIKit
 class NewGameViewController: UIViewController {
     
     private lazy var playerTableViewController: PlayersTableViewController = {
-            let tableController = PlayersTableViewController()
-            tableController.tableView.translatesAutoresizingMaskIntoConstraints = false
-            return tableController
-        }()
+        let tableController = PlayersTableViewController()
+        tableController.tableView.translatesAutoresizingMaskIntoConstraints = false
+        return tableController
+    }()
     
     private lazy var StartGameButton: UIButton = {
-            let button = UIButton()
-            button.setTitle("Start Game", for: .normal)
-            button.titleLabel?.font = UIFont(name: "nunito-extrabold", size: 24)
-            button.backgroundColor = UIColor(red: 132.0/255, green: 184.0/255, blue: 173.0/255, alpha: 1)
-            button.layer.cornerRadius = 30
-            button.translatesAutoresizingMaskIntoConstraints = false
-            button.layer.shadowColor = UIColor.gray.cgColor
-            button.layer.shadowOffset = CGSize(width: 0, height: 5)
-            button.layer.shadowRadius = 6
-            button.layer.shadowOpacity = 1
-            return button
-        }()
+        let button = UIButton()
+        button.setTitle("Start Game", for: .normal)
+        button.titleLabel?.font = UIFont(name: "nunito-extrabold", size: 24)
+        button.backgroundColor = UIColor(red: 132.0/255, green: 184.0/255, blue: 173.0/255, alpha: 1)
+
+        button.translatesAutoresizingMaskIntoConstraints = false
+    
+        button.layer.cornerRadius = 30
+        button.layer.shadowColor = UIColor.gray.cgColor
+        button.layer.shadowOffset = CGSize(width: 0, height: 5)
+        button.layer.shadowRadius = 6
+        button.layer.shadowOpacity = 1
+           
+        button.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
+        return button
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,14 +46,14 @@ class NewGameViewController: UIViewController {
         playerTableViewController.tableView.reloadData()
     }
     
-    @objc private func cancelBarButtonItemHandler () {
-
-    }
-    
     private func configureNavigationBar(){
         navigationItem.largeTitleDisplayMode = .automatic
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.white, .font: UIFont(name: "nunito-extrabold", size: 36) ?? UIFont()]
+        
+        let mask = UIImage()
+        navigationController?.navigationBar.backIndicatorImage = mask
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = mask
         
         navigationItem.title = "Game Counter"
         
@@ -84,5 +88,17 @@ class NewGameViewController: UIViewController {
             StartGameButton.topAnchor.constraint(greaterThanOrEqualTo: playerTableViewController.tableView.bottomAnchor, constant: 20)
         ])
     }
+    
+    @objc private func cancelBarButtonItemHandler () {
+        
+    }
+    
+    @objc private func startButtonTapped(){
+        navigationController?.pushViewController(GameProcessViewController(), animated: true)
+//        navigationItem.backBarButtonItem = UIBarButtonItem(title: "NewGame", style: .plain, target: nil, action: nil)
+        
+//        navigationItem.backBarButtonItem?.tintColor = UIColor.navigationBarButtonTextColor
+    }
 }
+
 

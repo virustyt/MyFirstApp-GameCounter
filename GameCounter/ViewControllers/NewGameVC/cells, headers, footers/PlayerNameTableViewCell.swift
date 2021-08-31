@@ -20,7 +20,7 @@ class PlayerNameTableViewCell: UITableViewCell {
         
         let universalSubview = UniversalView(frame: frame)
         universalSubview.translatesAutoresizingMaskIntoConstraints = false
-        universalSubview.leftButton.setImage(UIImage(named: "icon_Delete"), for: .normal)
+        universalSubview.leftButton.setImage(UIImage(named: "delete"), for: .normal)
         universalSubview.playerNameLabel.text = "default name"
         universalSubview.sortIconImageView.image = UIImage(named: "humburger")
         

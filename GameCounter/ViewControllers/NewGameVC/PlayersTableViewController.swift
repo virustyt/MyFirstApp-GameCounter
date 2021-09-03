@@ -71,7 +71,8 @@ class PlayersTableViewController: UITableViewController {
         else { fatalError("Header with udentifyer \(Identifiers.footer.rawValue) does noy exist.") }
         
         let universalView = getUniversalView(view: footer as UIView)
-        universalView.leftButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(addButtonTapped))
+        universalView.addGestureRecognizer(tapGestureRecognizer)
         
         return footer
     }

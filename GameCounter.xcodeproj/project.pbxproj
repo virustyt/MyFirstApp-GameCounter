@@ -14,6 +14,7 @@
 		8432A11726D7D20B00845006 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8432A11526D7D20B00845006 /* LaunchScreen.storyboard */; };
 		8432A11F26D7DE9400845006 /* PlayersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8432A11E26D7DE9400845006 /* PlayersTableViewController.swift */; };
 		8432A12226D7E61000845006 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8432A12126D7E61000845006 /* Storyboard.storyboard */; };
+		844D144026DEB6A40021BEDD /* TimerStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844D143F26DEB6A40021BEDD /* TimerStackView.swift */; };
 		84548BB626DCCCA600399D04 /* TextStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84548BB526DCCCA600399D04 /* TextStyles.swift */; };
 		84548BB926DCCE6900399D04 /* AppColorsUIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84548BB826DCCE6900399D04 /* AppColorsUIColorExtension.swift */; };
 		84548BBB26DCCEED00399D04 /* AppFontsUIFontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84548BBA26DCCEED00399D04 /* AppFontsUIFontExtension.swift */; };
@@ -22,6 +23,8 @@
 		846A144C26DB9A4D0069F766 /* UniversalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846A144B26DB9A4D0069F766 /* UniversalView.swift */; };
 		846A144E26DBD7CB0069F766 /* AddPlayerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846A144D26DBD7CB0069F766 /* AddPlayerTextField.swift */; };
 		848C997126DA554500E8914D /* footerForPlayersNameTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848C997026DA554500E8914D /* footerForPlayersNameTableView.swift */; };
+		84BD57B626E27ABE00CD6E4B /* ScoreCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BD57B526E27ABE00CD6E4B /* ScoreCollectionViewController.swift */; };
+		84BD57B826E27D0600CD6E4B /* ScoreCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BD57B726E27D0600CD6E4B /* ScoreCollectionViewCell.swift */; };
 		84FE9C2B26D8D4B600419838 /* nunito-semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84FE9C2926D8D4B600419838 /* nunito-semibold.ttf */; };
 		84FE9C2C26D8D4B600419838 /* nunito-extrabold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84FE9C2A26D8D4B600419838 /* nunito-extrabold.ttf */; };
 		84FE9C2E26D8EA4D00419838 /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FE9C2D26D8EA4D00419838 /* GameModel.swift */; };
@@ -39,6 +42,7 @@
 		8432A11826D7D20B00845006 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8432A11E26D7DE9400845006 /* PlayersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersTableViewController.swift; sourceTree = "<group>"; };
 		8432A12126D7E61000845006 /* Storyboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
+		844D143F26DEB6A40021BEDD /* TimerStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerStackView.swift; sourceTree = "<group>"; };
 		84548BB526DCCCA600399D04 /* TextStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStyles.swift; sourceTree = "<group>"; };
 		84548BB826DCCE6900399D04 /* AppColorsUIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColorsUIColorExtension.swift; sourceTree = "<group>"; };
 		84548BBA26DCCEED00399D04 /* AppFontsUIFontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFontsUIFontExtension.swift; sourceTree = "<group>"; };
@@ -47,6 +51,8 @@
 		846A144B26DB9A4D0069F766 /* UniversalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniversalView.swift; sourceTree = "<group>"; };
 		846A144D26DBD7CB0069F766 /* AddPlayerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlayerTextField.swift; sourceTree = "<group>"; };
 		848C997026DA554500E8914D /* footerForPlayersNameTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = footerForPlayersNameTableView.swift; sourceTree = "<group>"; };
+		84BD57B526E27ABE00CD6E4B /* ScoreCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreCollectionViewController.swift; sourceTree = "<group>"; };
+		84BD57B726E27D0600CD6E4B /* ScoreCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreCollectionViewCell.swift; sourceTree = "<group>"; };
 		84FE9C2926D8D4B600419838 /* nunito-semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "nunito-semibold.ttf"; sourceTree = "<group>"; };
 		84FE9C2A26D8D4B600419838 /* nunito-extrabold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "nunito-extrabold.ttf"; sourceTree = "<group>"; };
 		84FE9C2D26D8EA4D00419838 /* GameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
@@ -122,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				84548BBE26DCEC1F00399D04 /* GameProcessViewController.swift */,
+				84BD57B526E27ABE00CD6E4B /* ScoreCollectionViewController.swift */,
 				84548BC326DCF05C00399D04 /* customViews */,
 			);
 			path = GameProcessVC;
@@ -131,6 +138,8 @@
 			isa = PBXGroup;
 			children = (
 				84548BC126DCF04F00399D04 /* GameProcessTitleStackView.swift */,
+				844D143F26DEB6A40021BEDD /* TimerStackView.swift */,
+				84BD57B726E27D0600CD6E4B /* ScoreCollectionViewCell.swift */,
 			);
 			path = customViews;
 			sourceTree = "<group>";
@@ -262,7 +271,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				84548BBF26DCEC1F00399D04 /* GameProcessViewController.swift in Sources */,
+				844D144026DEB6A40021BEDD /* TimerStackView.swift in Sources */,
 				84FE9C2E26D8EA4D00419838 /* GameModel.swift in Sources */,
+				84BD57B626E27ABE00CD6E4B /* ScoreCollectionViewController.swift in Sources */,
 				84548BB626DCCCA600399D04 /* TextStyles.swift in Sources */,
 				84548BBB26DCCEED00399D04 /* AppFontsUIFontExtension.swift in Sources */,
 				846A144C26DB9A4D0069F766 /* UniversalView.swift in Sources */,
@@ -270,6 +281,7 @@
 				8432A11F26D7DE9400845006 /* PlayersTableViewController.swift in Sources */,
 				8432A10F26D7D20500845006 /* NewGameViewController.swift in Sources */,
 				84548BC226DCF04F00399D04 /* GameProcessTitleStackView.swift in Sources */,
+				84BD57B826E27D0600CD6E4B /* ScoreCollectionViewCell.swift in Sources */,
 				848C997126DA554500E8914D /* footerForPlayersNameTableView.swift in Sources */,
 				84548BB926DCCE6900399D04 /* AppColorsUIColorExtension.swift in Sources */,
 				8432A10B26D7D20500845006 /* AppDelegate.swift in Sources */,

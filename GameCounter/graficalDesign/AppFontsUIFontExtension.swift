@@ -9,4 +9,5 @@ import UIKit
 
 extension UIFont {
     static let navigationBarButtonTextFont = UIFont(name: "Nunito-ExtraBold", size: 17)
+    
 }

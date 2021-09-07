@@ -50,7 +50,8 @@ class PlayersTableViewController: UITableViewController {
                                                                                               .font: UIFont(name: "Nunito-ExtraBold", size: 20) ?? UIFont()])
         
         universalView.leftButton.layer.setValue(playerName, forKey: "playerName")
-        universalView.leftButton.addTarget(self, action: #selector(deleteButtomTapped), for: .touchUpInside)
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(deleteButtomTapped))
+        universalView.stackView.addGestureRecognizer(tapGesture)
         return cell
     }
     

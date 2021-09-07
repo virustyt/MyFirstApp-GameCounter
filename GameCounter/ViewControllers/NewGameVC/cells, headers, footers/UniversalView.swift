@@ -36,7 +36,7 @@ class UniversalView: UIView {
             return image
         }()
 
-    private lazy var stackView: UIStackView =
+    lazy var stackView: UIStackView =
         {
             let stack = UIStackView()
             stack.translatesAutoresizingMaskIntoConstraints = false

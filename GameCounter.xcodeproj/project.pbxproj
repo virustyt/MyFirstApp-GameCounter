@@ -15,6 +15,7 @@
 		8432A11726D7D20B00845006 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8432A11526D7D20B00845006 /* LaunchScreen.storyboard */; };
 		8432A11F26D7DE9400845006 /* PlayersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8432A11E26D7DE9400845006 /* PlayersTableViewController.swift */; };
 		8432A12226D7E61000845006 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8432A12126D7E61000845006 /* Storyboard.storyboard */; };
+		84436EA426E89E25007A5F2C /* ScoreNavigationStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84436EA326E89E25007A5F2C /* ScoreNavigationStackView.swift */; };
 		844D144026DEB6A40021BEDD /* TimerStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844D143F26DEB6A40021BEDD /* TimerStackView.swift */; };
 		84548BB626DCCCA600399D04 /* TextStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84548BB526DCCCA600399D04 /* TextStyles.swift */; };
 		84548BB926DCCE6900399D04 /* AppColorsUIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84548BB826DCCE6900399D04 /* AppColorsUIColorExtension.swift */; };
@@ -45,6 +46,7 @@
 		8432A11826D7D20B00845006 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8432A11E26D7DE9400845006 /* PlayersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersTableViewController.swift; sourceTree = "<group>"; };
 		8432A12126D7E61000845006 /* Storyboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
+		84436EA326E89E25007A5F2C /* ScoreNavigationStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreNavigationStackView.swift; sourceTree = "<group>"; };
 		844D143F26DEB6A40021BEDD /* TimerStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerStackView.swift; sourceTree = "<group>"; };
 		84548BB526DCCCA600399D04 /* TextStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStyles.swift; sourceTree = "<group>"; };
 		84548BB826DCCE6900399D04 /* AppColorsUIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColorsUIColorExtension.swift; sourceTree = "<group>"; };
@@ -117,6 +119,15 @@
 			path = ViewControllers;
 			sourceTree = "<group>";
 		};
+		84436EA526E89E30007A5F2C /* collectionViewSupplement */ = {
+			isa = PBXGroup;
+			children = (
+				84BD57BD26E2830200CD6E4B /* ScoreCollectionViewCell.swift */,
+				84BD57C326E2979600CD6E4B /* CustomCollectionViewFlowLayout.swift */,
+			);
+			path = collectionViewSupplement;
+			sourceTree = "<group>";
+		};
 		84548BB726DCCCB800399D04 /* graficalDesign */ = {
 			isa = PBXGroup;
 			children = (
@@ -133,6 +144,7 @@
 			children = (
 				84548BBE26DCEC1F00399D04 /* GameProcessViewController.swift */,
 				84BD57BF26E284B000CD6E4B /* ScoreCollectionViewController.swift */,
+				84436EA526E89E30007A5F2C /* collectionViewSupplement */,
 				84548BC326DCF05C00399D04 /* customViews */,
 			);
 			path = GameProcessVC;
@@ -143,8 +155,7 @@
 			children = (
 				84548BC126DCF04F00399D04 /* GameProcessTitleStackView.swift */,
 				844D143F26DEB6A40021BEDD /* TimerStackView.swift */,
-				84BD57BD26E2830200CD6E4B /* ScoreCollectionViewCell.swift */,
-				84BD57C326E2979600CD6E4B /* CustomCollectionViewFlowLayout.swift */,
+				84436EA326E89E25007A5F2C /* ScoreNavigationStackView.swift */,
 			);
 			path = customViews;
 			sourceTree = "<group>";
@@ -162,7 +173,7 @@
 			children = (
 				8432A10E26D7D20500845006 /* NewGameViewController.swift */,
 				8432A11E26D7DE9400845006 /* PlayersTableViewController.swift */,
-				848C997426DA55CB00E8914D /* cells, headers, footers */,
+				848C997426DA55CB00E8914D /* tableViewSupplement */,
 			);
 			path = NewGameVC;
 			sourceTree = "<group>";
@@ -176,14 +187,14 @@
 			path = AddPlayerVC;
 			sourceTree = "<group>";
 		};
-		848C997426DA55CB00E8914D /* cells, headers, footers */ = {
+		848C997426DA55CB00E8914D /* tableViewSupplement */ = {
 			isa = PBXGroup;
 			children = (
 				846A144B26DB9A4D0069F766 /* UniversalView.swift */,
 				84FE9C3126D907A300419838 /* PlayerNameTableViewCell.swift */,
 				848C997026DA554500E8914D /* footerForPlayersNameTableView.swift */,
 			);
-			path = "cells, headers, footers";
+			path = tableViewSupplement;
 			sourceTree = "<group>";
 		};
 		84FE9C2726D8D22300419838 /* fonts */ = {
@@ -283,6 +294,7 @@
 				84548BB626DCCCA600399D04 /* TextStyles.swift in Sources */,
 				84548BBB26DCCEED00399D04 /* AppFontsUIFontExtension.swift in Sources */,
 				846A144C26DB9A4D0069F766 /* UniversalView.swift in Sources */,
+				84436EA426E89E25007A5F2C /* ScoreNavigationStackView.swift in Sources */,
 				846A144E26DBD7CB0069F766 /* AddPlayerTextField.swift in Sources */,
 				84BD57C426E2979600CD6E4B /* CustomCollectionViewFlowLayout.swift in Sources */,
 				8432A11F26D7DE9400845006 /* PlayersTableViewController.swift in Sources */,

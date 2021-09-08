@@ -12,6 +12,7 @@ class GameProcessViewController: UIViewController {
     private var constraintTitleLeadingAnchor:NSLayoutConstraint!
     private let timer = TimerStackView()
     private let scoreCollectionViewController = ScoreCollectionViewController.init(collectionViewLayout: CustomCollectionViewLayout())
+    private let priviousNextButtonsView = ScoreNavigationStackView()
     
     private lazy var viewTitle: UIStackView = {
         let title = GameProcessTitleStackView()
@@ -23,7 +24,7 @@ class GameProcessViewController: UIViewController {
         super.viewDidLoad()
         
         configureNavigationBar()
-        configureSubviews()
+        addSubviews()
         configureConstraints()
         view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         print(scoreCollectionViewController.collectionView.visibleSize)
@@ -34,12 +35,13 @@ class GameProcessViewController: UIViewController {
         view.layoutIfNeeded()
     }
     
-    private func configureSubviews(){
+    private func addSubviews(){
         view.addSubview(viewTitle)
         view.addSubview(timer)
         self.addChild(scoreCollectionViewController)
         view.addSubview(scoreCollectionViewController.collectionView)
         scoreCollectionViewController.didMove(toParent: self)
+        view.addSubview(priviousNextButtonsView)
     }
     
     private func configureConstraints(){
@@ -56,7 +58,11 @@ class GameProcessViewController: UIViewController {
             scoreCollectionViewController.collectionView.topAnchor.constraint(equalTo: timer.bottomAnchor, constant: 42),
             scoreCollectionViewController.collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             scoreCollectionViewController.collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            scoreCollectionViewController.collectionView.heightAnchor.constraint(equalToConstant: 300)
+            scoreCollectionViewController.collectionView.heightAnchor.constraint(equalToConstant: 300),
+            
+            priviousNextButtonsView.topAnchor.constraint(equalTo: scoreCollectionViewController.collectionView.bottomAnchor, constant: 28),
+            priviousNextButtonsView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 46),
+            priviousNextButtonsView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50)
         ])
     }
     

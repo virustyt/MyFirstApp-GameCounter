@@ -9,9 +9,9 @@ import UIKit
 
 private let scoreCellIdentifier = "Cell"
 
-class ScoreCollectionViewController: UICollectionViewController {
+class ScoreCollectionViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
-    private lazy var customCollectionViewLayout: UICollectionViewLayout = {
+    private lazy var collectionViewFlowLayout: UICollectionViewLayout = {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 20
@@ -22,10 +22,11 @@ class ScoreCollectionViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: CustomCollectionViewLayout())
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: ScoresCollectionViewFlowLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.delegate = self
         self.collectionView!.register(ScoreCollectionViewCell.self, forCellWithReuseIdentifier: scoreCellIdentifier)
+        collectionView.removeGestureRecognizer(collectionView.panGestureRecognizer)
     }
 
     // MARK: - Navigation
@@ -64,6 +65,24 @@ class ScoreCollectionViewController: UICollectionViewController {
     
         return cell
     }
+    
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+//        guard collectionView.numberOfItems(inSection: 0) != 0 else {
+//            print("Hello - 1")
+//            return .zero
+//            
+//        }
+//        let cellWidth = self.collectionView(collectionView, cellForItemAt: IndexPath(item: 0, section: 0)).frame.size.width
+//        guard let parentView = collectionView.superview else {
+//            print("Hello - 2")
+//            return .zero
+//            
+//        }
+//        let leftInset = (parentView.frame.size.width - cellWidth) / 2
+//        return UIEdgeInsets(top: 0, left: leftInset, bottom: 0, right: 0)
+//    }
+    
+    
 
     // MARK: UICollectionViewDelegate
 

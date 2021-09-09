@@ -7,13 +7,15 @@
 
 import UIKit
 
-class CustomCollectionViewLayout: UICollectionViewFlowLayout {
+class ScoresCollectionViewFlowLayout: UICollectionViewFlowLayout {
+
     override init() {
         super.init()
         scrollDirection = .horizontal
         minimumLineSpacing = 20
         minimumInteritemSpacing = 0
         itemSize = CGSize(width: 225, height: 300)
+        
     }
     
     required init?(coder: NSCoder) {

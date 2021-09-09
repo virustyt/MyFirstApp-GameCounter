@@ -9,22 +9,27 @@ import UIKit
 
 class ScoreNavigationStackView: UIStackView {
 
-    private lazy var priviousButton: UIButton = {
+    lazy var priviousButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "previous"), for: .normal)
         return button
     }()
     
-    private lazy var nextButton: UIButton = {
+    lazy var nextButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "next"), for: .normal)
         return button
     }()
     
-    private lazy var plusOneButton: UIButton = {
+    lazy var plusOneButton: UIButton = {
         let button = UIButton()
+        let shadow = NSShadow()
+        shadow.shadowOffset = CGSize(width: 0, height: 2)
+        shadow.shadowColor = UIColor(red: 0.329, green: 0.471, blue: 0.435, alpha: 1)
+        
         let attributedText = NSAttributedString(string: "+1", attributes: [.foregroundColor: UIColor.white,
-                                                                           .font: UIFont(name: "nunito-extrabold", size: 40) ?? UIFont.systemFont(ofSize: 40)])
+                                                                           .font: UIFont(name: "nunito-extrabold", size: 40) ?? UIFont.systemFont(ofSize: 40),
+                                                                           .shadow: shadow])
         button.setAttributedTitle(attributedText, for: .normal)
         button.backgroundColor = UIColor.navigationBarButtonTextColor
         return button

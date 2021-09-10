@@ -163,6 +163,11 @@ class GameProcessViewController: UIViewController {
     }
     
     @objc private func plusOneButtonTapped(){
-        
+        let playerName = GameModel.shared.allPlayers[numberOfSelectedCell - 1]
+        guard let playerScore = GameModel.shared.playersScores[playerName] else {return}
+        GameModel.shared.playersScores[playerName] = playerScore + 1
+        scoreCollectionViewController.collectionView.reloadItems(at: [IndexPath(item: numberOfSelectedCell - 1, section: 0)])
     }
+    
+    
 }

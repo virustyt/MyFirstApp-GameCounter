@@ -12,7 +12,7 @@ class GameProcessViewController: UIViewController {
     private var constraintTitleLeadingAnchorInset:NSLayoutConstraint!
     private let timer = TimerStackView()
     private let scoreCollectionViewController = ScoreCollectionViewController.init(collectionViewLayout: ScoresCollectionViewFlowLayout())
-    private var numberOfSelectedCell = 1
+    private var numberOfSelectedCell = 0
     
     private lazy var viewTitle: UIStackView = {
         let title = GameProcessTitleStackView()
@@ -52,6 +52,12 @@ class GameProcessViewController: UIViewController {
         return buttonsStack
     }()
     
+    private lazy var undoAndMiibarStack: UndoAndMinibarStack = {
+        let stack = UndoAndMinibarStack()
+        stack.undoButton.addTarget(self, action: #selector(undoButtonPressed), for: .touchUpInside)
+        return stack
+    }()
+    
     private var  distanceBetweenCellsCenters: CGFloat {
         guard let flowLayout = scoreCollectionViewController.collectionViewLayout as? UICollectionViewFlowLayout,scoreCollectionViewController.collectionView.visibleCells.count != 0 else {return 0.0}
         let distanceBetweenCellsCenters = scoreCollectionViewController.collectionView(scoreCollectionViewController.collectionView, cellForItemAt: IndexPath(item: 0, section: 0)).frame.size.width + flowLayout.minimumLineSpacing
@@ -85,6 +91,7 @@ class GameProcessViewController: UIViewController {
         scoreCollectionViewController.didMove(toParent: self)
         view.addSubview(priviousNextButtonsView)
         view.addSubview(changeScoreButtonsStack)
+        view.addSubview(undoAndMiibarStack)
     }
     
     private func configureConstraints(){
@@ -110,6 +117,11 @@ class GameProcessViewController: UIViewController {
             changeScoreButtonsStack.topAnchor.constraint(equalTo: priviousNextButtonsView.bottomAnchor, constant: 22),
             changeScoreButtonsStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 20),
             changeScoreButtonsStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            
+            undoAndMiibarStack.topAnchor.constraint(equalTo: changeScoreButtonsStack.bottomAnchor, constant: 20),
+            undoAndMiibarStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 40),
+            undoAndMiibarStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -40),
+            
         ])
     }
     
@@ -164,19 +176,21 @@ class GameProcessViewController: UIViewController {
     }()
     
     @objc private func nextScoreButtonTapped(){
-        guard 1...GameModel.shared.allPlayers.count - 1 ~= numberOfSelectedCell else {return}
-        let nextXOffset = distanceBetweenCellsCenters * CGFloat(numberOfSelectedCell)
+        guard 0...GameModel.shared.allPlayers.count - 2 ~= numberOfSelectedCell else {return}
+        let nextXOffset = distanceBetweenCellsCenters * CGFloat(numberOfSelectedCell + 1)
         let nextpoint = CGPoint(x: nextXOffset, y: 0)
         scoreCollectionViewController.collectionView.setContentOffset(nextpoint, animated: true)
         numberOfSelectedCell += 1
+        undoAndMiibarStack.setWhiteColorToCharachter(index: numberOfSelectedCell)
     }
     
     @objc private func priviousScoreButtonTapped(){
-        guard 2...GameModel.shared.allPlayers.count ~= numberOfSelectedCell else {return}
-        let nextXOffset = distanceBetweenCellsCenters * CGFloat(numberOfSelectedCell - 2)
+        guard 1...GameModel.shared.allPlayers.count - 1 ~= numberOfSelectedCell else {return}
+        let nextXOffset = distanceBetweenCellsCenters * CGFloat(numberOfSelectedCell - 1)
         let nextpoint = CGPoint(x: nextXOffset, y: 0)
         scoreCollectionViewController.collectionView.setContentOffset(nextpoint, animated: true)
         numberOfSelectedCell -= 1
+        undoAndMiibarStack.setWhiteColorToCharachter(index: numberOfSelectedCell)
     }
     
     @objc private func plusOneButtonTapped(){
@@ -201,5 +215,9 @@ class GameProcessViewController: UIViewController {
     
     @objc private func minusTenButtonTapped(){
         changeScoreOfSelectedCell(by: -10)
+    }
+    
+    @objc private func undoButtonPressed(){
+        
     }
 }

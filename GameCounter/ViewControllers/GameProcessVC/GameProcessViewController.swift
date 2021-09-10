@@ -14,6 +14,12 @@ class GameProcessViewController: UIViewController {
     private let scoreCollectionViewController = ScoreCollectionViewController.init(collectionViewLayout: ScoresCollectionViewFlowLayout())
     private var numberOfSelectedCell = 1
     
+    private lazy var viewTitle: UIStackView = {
+        let title = GameProcessTitleStackView()
+        title.translatesAutoresizingMaskIntoConstraints = false
+        return title
+    }()
+    
     private lazy var collectionViewContainer: UIView = {
         let container = UIView()
         container.addSubview(scoreCollectionViewController.collectionView)
@@ -28,19 +34,6 @@ class GameProcessViewController: UIViewController {
         return container
     }()
     
-    private var  distanceBetweenCellsCenters: CGFloat {
-        guard let flowLayout = scoreCollectionViewController.collectionViewLayout as? UICollectionViewFlowLayout,scoreCollectionViewController.collectionView.visibleCells.count != 0 else {return 0.0}
-        let distanceBetweenCellsCenters = scoreCollectionViewController.collectionView(scoreCollectionViewController.collectionView, cellForItemAt: IndexPath(item: 0, section: 0)).frame.size.width + flowLayout.minimumLineSpacing
-        return distanceBetweenCellsCenters
-    }
-    
-    private var collectionViewLeftInset: CGFloat {
-        guard scoreCollectionViewController.collectionView.visibleCells.count != 0 else {return 0.0}
-        let cellWidth = scoreCollectionViewController.collectionView(scoreCollectionViewController.collectionView, cellForItemAt: IndexPath(item: 0, section: 0)).frame.size.width
-        let neededDistance = (collectionViewContainer.frame.size.width - cellWidth) / 2
-        return neededDistance
-    }
-    
     private let priviousNextButtonsView: ScoreNavigationStackView = {
         let stack = ScoreNavigationStackView()
         stack.priviousButton.addTarget(self, action: #selector(priviousScoreButtonTapped), for: .touchUpInside)
@@ -49,11 +42,21 @@ class GameProcessViewController: UIViewController {
         return stack
     }()
     
-    private lazy var viewTitle: UIStackView = {
-        let title = GameProcessTitleStackView()
-        title.translatesAutoresizingMaskIntoConstraints = false
-        return title
+    private lazy var changeScoreButtonsStack: ChangeScoreButtonsStackView = {
+        let buttonsStack = ChangeScoreButtonsStackView()
+        buttonsStack.plusFiveButton.addTarget(self, action: #selector(plusFiveButtonTapped), for: .touchUpInside)
+        buttonsStack.plusTenButton.addTarget(self, action: #selector(plusTenButtonTapped), for: .touchUpInside)
+        buttonsStack.minusOneButton.addTarget(self, action: #selector(minusOneButtonTapped), for: .touchUpInside)
+        buttonsStack.minusFiveButton.addTarget(self, action: #selector(minusFiveButtonTapped), for: .touchUpInside)
+        buttonsStack.minusTenButton.addTarget(self, action: #selector(minusTenButtonTapped), for: .touchUpInside)
+        return buttonsStack
     }()
+    
+    private var  distanceBetweenCellsCenters: CGFloat {
+        guard let flowLayout = scoreCollectionViewController.collectionViewLayout as? UICollectionViewFlowLayout,scoreCollectionViewController.collectionView.visibleCells.count != 0 else {return 0.0}
+        let distanceBetweenCellsCenters = scoreCollectionViewController.collectionView(scoreCollectionViewController.collectionView, cellForItemAt: IndexPath(item: 0, section: 0)).frame.size.width + flowLayout.minimumLineSpacing
+        return distanceBetweenCellsCenters
+    }
     
     //MARK: - life cycle methods
     override func viewDidLoad() {
@@ -68,12 +71,8 @@ class GameProcessViewController: UIViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         constraintTitleLeadingAnchorInset.constant = leftButton.convert(self.leftButton.frame, to: nil).minX
-        
-        guard let layout = scoreCollectionViewController.collectionView.collectionViewLayout as? UICollectionViewFlowLayout,
-              let cellWidth = layout.layoutAttributesForItem(at: IndexPath(item: 0, section: 0))?.frame.size.width,
-              cellWidth != 0.0  else {return}
-        let leftInset = (collectionViewContainer.frame.size.width - cellWidth) / 2
-        layout.sectionInset.left = leftInset
+    
+        setCollectionViewLeftInset()
     }
     
     //MARK: - private functions
@@ -85,6 +84,7 @@ class GameProcessViewController: UIViewController {
         view.addSubview(collectionViewContainer)
         scoreCollectionViewController.didMove(toParent: self)
         view.addSubview(priviousNextButtonsView)
+        view.addSubview(changeScoreButtonsStack)
     }
     
     private func configureConstraints(){
@@ -105,7 +105,11 @@ class GameProcessViewController: UIViewController {
             
             priviousNextButtonsView.topAnchor.constraint(equalTo: scoreCollectionViewController.collectionView.bottomAnchor, constant: 28),
             priviousNextButtonsView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 46),
-            priviousNextButtonsView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50)
+            priviousNextButtonsView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50),
+            
+            changeScoreButtonsStack.topAnchor.constraint(equalTo: priviousNextButtonsView.bottomAnchor, constant: 22),
+            changeScoreButtonsStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 20),
+            changeScoreButtonsStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
         ])
     }
     
@@ -119,6 +123,21 @@ class GameProcessViewController: UIViewController {
         
         navigationItem.leftBarButtonItem?.target = self
         navigationItem.leftBarButtonItem?.action = #selector(backButtonTapped)
+    }
+    
+    private func setCollectionViewLeftInset(){
+        guard let layout = scoreCollectionViewController.collectionView.collectionViewLayout as? UICollectionViewFlowLayout,
+              let cellWidth = layout.layoutAttributesForItem(at: IndexPath(item: 0, section: 0))?.frame.size.width,
+              cellWidth != 0.0  else {return}
+        let leftInset = (collectionViewContainer.frame.size.width - cellWidth) / 2
+        layout.sectionInset.left = leftInset
+    }
+    
+    private func changeScoreOfSelectedCell(by score: Int){
+        let playerName = GameModel.shared.allPlayers[numberOfSelectedCell - 1]
+        guard let playerScore = GameModel.shared.playersScores[playerName] else {return}
+        GameModel.shared.playersScores[playerName] = playerScore + score
+        scoreCollectionViewController.collectionView.reloadItems(at: [IndexPath(item: numberOfSelectedCell - 1, section: 0)])
     }
     
     //MARK: - selectors
@@ -146,7 +165,6 @@ class GameProcessViewController: UIViewController {
     
     @objc private func nextScoreButtonTapped(){
         guard 1...GameModel.shared.allPlayers.count - 1 ~= numberOfSelectedCell else {return}
-//        let nextXOffset = scoreCollectionViewController.collectionView.contentOffset.x + distanceBetweenCellsCenters
         let nextXOffset = distanceBetweenCellsCenters * CGFloat(numberOfSelectedCell)
         let nextpoint = CGPoint(x: nextXOffset, y: 0)
         scoreCollectionViewController.collectionView.setContentOffset(nextpoint, animated: true)
@@ -155,7 +173,6 @@ class GameProcessViewController: UIViewController {
     
     @objc private func priviousScoreButtonTapped(){
         guard 2...GameModel.shared.allPlayers.count ~= numberOfSelectedCell else {return}
-//        let nextXOffset = scoreCollectionViewController.collectionView.contentOffset.x - distanceBetweenCellsCenters
         let nextXOffset = distanceBetweenCellsCenters * CGFloat(numberOfSelectedCell - 2)
         let nextpoint = CGPoint(x: nextXOffset, y: 0)
         scoreCollectionViewController.collectionView.setContentOffset(nextpoint, animated: true)
@@ -163,11 +180,26 @@ class GameProcessViewController: UIViewController {
     }
     
     @objc private func plusOneButtonTapped(){
-        let playerName = GameModel.shared.allPlayers[numberOfSelectedCell - 1]
-        guard let playerScore = GameModel.shared.playersScores[playerName] else {return}
-        GameModel.shared.playersScores[playerName] = playerScore + 1
-        scoreCollectionViewController.collectionView.reloadItems(at: [IndexPath(item: numberOfSelectedCell - 1, section: 0)])
+        changeScoreOfSelectedCell(by: +1)
     }
     
+    @objc private func plusFiveButtonTapped(){
+        changeScoreOfSelectedCell(by: +5)
+    }
     
+    @objc private func plusTenButtonTapped(){
+        changeScoreOfSelectedCell(by: +10)
+    }
+    
+    @objc private func minusOneButtonTapped(){
+        changeScoreOfSelectedCell(by: -1)
+    }
+    
+    @objc private func minusFiveButtonTapped(){
+        changeScoreOfSelectedCell(by: -5)
+    }
+    
+    @objc private func minusTenButtonTapped(){
+        changeScoreOfSelectedCell(by: -10)
+    }
 }

@@ -55,6 +55,7 @@ class GameProcessViewController: UIViewController {
         return title
     }()
     
+    //MARK: - life cycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -68,10 +69,14 @@ class GameProcessViewController: UIViewController {
         super.viewDidLayoutSubviews()
         constraintTitleLeadingAnchorInset.constant = leftButton.convert(self.leftButton.frame, to: nil).minX
         
-        guard let layout = scoreCollectionViewController.collectionView.collectionViewLayout as? UICollectionViewFlowLayout else {return}
-        layout.sectionInset.left = collectionViewLeftInset
+        guard let layout = scoreCollectionViewController.collectionView.collectionViewLayout as? UICollectionViewFlowLayout,
+              let cellWidth = layout.layoutAttributesForItem(at: IndexPath(item: 0, section: 0))?.frame.size.width,
+              cellWidth != 0.0  else {return}
+        let leftInset = (collectionViewContainer.frame.size.width - cellWidth) / 2
+        layout.sectionInset.left = leftInset
     }
     
+    //MARK: - private functions
     private func addSubviews(){
         view.addSubview(viewTitle)
         view.addSubview(timer)
@@ -116,6 +121,7 @@ class GameProcessViewController: UIViewController {
         navigationItem.leftBarButtonItem?.action = #selector(backButtonTapped)
     }
     
+    //MARK: - selectors
     @objc private func backButtonTapped(){
         navigationController?.popViewController(animated: true)
     }

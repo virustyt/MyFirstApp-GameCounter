@@ -22,7 +22,6 @@ class ScoreCollectionViewController: UICollectionViewController, UICollectionVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        collectionView = UICollectionView(frame: .zero, collectionViewLayout: ScoresCollectionViewFlowLayout())
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.delegate = self
         self.collectionView!.register(ScoreCollectionViewCell.self, forCellWithReuseIdentifier: scoreCellIdentifier)
@@ -46,7 +45,7 @@ class ScoreCollectionViewController: UICollectionViewController, UICollectionVie
         else { fatalError("Cell with identifyer \(scoreCellIdentifier) does not exist.") }
         cell.backgroundColor = UIColor(red: 0.231, green: 0.231, blue: 0.231, alpha: 1)
         cell.layer.cornerRadius = 15
-        
+
         let playerName = GameModel.shared.allPlayers[indexPath.item]
         let paragrafStyle = NSMutableParagraphStyle()
         paragrafStyle.lineHeightMultiple = 1.07
@@ -54,7 +53,7 @@ class ScoreCollectionViewController: UICollectionViewController, UICollectionVie
                                                              .foregroundColor : UIColor.playersNameColorOrange,
                                                              .paragraphStyle : paragrafStyle]
         cell.nameLabel.attributedText = NSAttributedString(string: playerName, attributes: nameAttributes)
-        
+
         guard let playerScore = GameModel.shared.playersScores[playerName] else {fatalError("Score for player \(playerName) does not exist.")}
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineHeightMultiple = 0.3
@@ -62,27 +61,9 @@ class ScoreCollectionViewController: UICollectionViewController, UICollectionVie
                                                               .foregroundColor : UIColor.customWhite,
                                                              .paragraphStyle : paragrafStyle]
         cell.scoreLabel.attributedText = NSAttributedString(string: "\(playerScore)", attributes: scoreAttributes)
-    
+
         return cell
     }
-    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-//        guard collectionView.numberOfItems(inSection: 0) != 0 else {
-//            print("Hello - 1")
-//            return .zero
-//            
-//        }
-//        let cellWidth = self.collectionView(collectionView, cellForItemAt: IndexPath(item: 0, section: 0)).frame.size.width
-//        guard let parentView = collectionView.superview else {
-//            print("Hello - 2")
-//            return .zero
-//            
-//        }
-//        let leftInset = (parentView.frame.size.width - cellWidth) / 2
-//        return UIEdgeInsets(top: 0, left: leftInset, bottom: 0, right: 0)
-//    }
-    
-    
 
     // MARK: UICollectionViewDelegate
 
@@ -114,6 +95,6 @@ class ScoreCollectionViewController: UICollectionViewController, UICollectionVie
     
     }
     */
-
+    
 }
 

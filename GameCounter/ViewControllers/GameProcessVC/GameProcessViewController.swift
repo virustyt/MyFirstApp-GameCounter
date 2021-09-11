@@ -11,7 +11,12 @@ class GameProcessViewController: UIViewController {
     
     private var constraintTitleLeadingAnchorInset:NSLayoutConstraint!
     private let timer = TimerStackView()
-    private let scoreCollectionViewController = ScoreCollectionViewController.init(collectionViewLayout: ScoresCollectionViewFlowLayout())
+    private let scoreCollectionViewController: ScoreCollectionViewController = {
+        let controller = ScoreCollectionViewController.init(collectionViewLayout: ScoresCollectionViewFlowLayout())
+        controller.collectionView.translatesAutoresizingMaskIntoConstraints = false
+        return controller
+    }()
+    
     private var numberOfSelectedCell = 0
     
     private lazy var viewTitle: UIStackView = {
@@ -34,7 +39,7 @@ class GameProcessViewController: UIViewController {
         return container
     }()
     
-    private let priviousNextButtonsView: ScoreNavigationStackView = {
+    private let priviousNextButtonsStack: ScoreNavigationStackView = {
         let stack = ScoreNavigationStackView()
         stack.priviousButton.addTarget(self, action: #selector(priviousScoreButtonTapped), for: .touchUpInside)
         stack.plusOneButton.addTarget(self, action: #selector(plusOneButtonTapped), for: .touchUpInside)
@@ -78,7 +83,7 @@ class GameProcessViewController: UIViewController {
         super.viewDidLayoutSubviews()
         constraintTitleLeadingAnchorInset.constant = leftButton.convert(self.leftButton.frame, to: nil).minX
     
-        setCollectionViewLeftInset()
+//        setCollectionViewLeftInset()
     }
     
     //MARK: - private functions
@@ -86,10 +91,9 @@ class GameProcessViewController: UIViewController {
         view.addSubview(viewTitle)
         view.addSubview(timer)
         self.addChild(scoreCollectionViewController)
-//        view.addSubview(scoreCollectionViewController.collectionView)
-        view.addSubview(collectionViewContainer)
+        view.addSubview(scoreCollectionViewController.collectionView)
         scoreCollectionViewController.didMove(toParent: self)
-        view.addSubview(priviousNextButtonsView)
+        view.addSubview(priviousNextButtonsStack)
         view.addSubview(changeScoreButtonsStack)
         view.addSubview(undoAndMiibarStack)
     }
@@ -105,23 +109,22 @@ class GameProcessViewController: UIViewController {
             timer.topAnchor.constraint(equalTo: viewTitle.bottomAnchor, constant: 29),
             timer.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            collectionViewContainer.topAnchor.constraint(equalTo: timer.bottomAnchor, constant: 42),
-            collectionViewContainer.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            collectionViewContainer.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            collectionViewContainer.heightAnchor.constraint(equalToConstant: 300),
+            scoreCollectionViewController.collectionView.topAnchor.constraint(equalTo: timer.bottomAnchor, constant: 42),
+            scoreCollectionViewController.collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            scoreCollectionViewController.collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            scoreCollectionViewController.collectionView.heightAnchor.constraint(equalToConstant: 300),
             
-            priviousNextButtonsView.topAnchor.constraint(equalTo: scoreCollectionViewController.collectionView.bottomAnchor, constant: 28),
-            priviousNextButtonsView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 46),
-            priviousNextButtonsView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50),
+            priviousNextButtonsStack.topAnchor.constraint(equalTo: scoreCollectionViewController.collectionView.bottomAnchor, constant: 28),
+            priviousNextButtonsStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 46),
+            priviousNextButtonsStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50),
             
-            changeScoreButtonsStack.topAnchor.constraint(equalTo: priviousNextButtonsView.bottomAnchor, constant: 22),
+            changeScoreButtonsStack.topAnchor.constraint(equalTo: priviousNextButtonsStack.bottomAnchor, constant: 22),
             changeScoreButtonsStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 20),
             changeScoreButtonsStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             
             undoAndMiibarStack.topAnchor.constraint(equalTo: changeScoreButtonsStack.bottomAnchor, constant: 20),
             undoAndMiibarStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 40),
-            undoAndMiibarStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -40),
-            
+            undoAndMiibarStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -40)
         ])
     }
     
@@ -146,10 +149,10 @@ class GameProcessViewController: UIViewController {
     }
     
     private func changeScoreOfSelectedCell(by score: Int){
-        let playerName = GameModel.shared.allPlayers[numberOfSelectedCell - 1]
+        let playerName = GameModel.shared.allPlayers[numberOfSelectedCell]
         guard let playerScore = GameModel.shared.playersScores[playerName] else {return}
         GameModel.shared.playersScores[playerName] = playerScore + score
-        scoreCollectionViewController.collectionView.reloadItems(at: [IndexPath(item: numberOfSelectedCell - 1, section: 0)])
+        scoreCollectionViewController.collectionView.reloadItems(at: [IndexPath(item: numberOfSelectedCell, section: 0)])
     }
     
     //MARK: - selectors

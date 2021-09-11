@@ -9,7 +9,7 @@ import UIKit
 
 class UndoAndMinibarStack: UIStackView {
 
-    func setWhiteColorToCharachter(index: Int){
+    func setWhiteColorToCharachter(index: Int) {
         guard let text = playersNamesMinibar.attributedText, text.length != 0
         else {return}
         let attributes: [NSAttributedString.Key : Any] = [.foregroundColor: UIColor(red: 0.231, green: 0.231, blue: 0.231, alpha: 1),
@@ -21,16 +21,14 @@ class UndoAndMinibarStack: UIStackView {
         playersNamesMinibar.attributedText = newText
     }
     
-    lazy var undoButton: UIButton =
-        {
+    lazy var undoButton: UIButton = {
             let button = UIButton()
             button.setImage(UIImage(named: "undo"), for: .normal)
             button.setContentHuggingPriority(.defaultHigh, for: .horizontal)
             return button
         }()
 
-    lazy var playersNamesMinibar: UILabel =
-        {
+    lazy var playersNamesMinibar: UILabel = {
           let label = UILabel()
             let attributes: [NSAttributedString.Key : Any] = [.foregroundColor: UIColor(red: 0.231, green: 0.231, blue: 0.231, alpha: 1),
                                                               .font: UIFont(name: "nunito-extrabold", size: 20) ?? UIFont.systemFont(ofSize: 20)]

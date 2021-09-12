@@ -33,6 +33,8 @@ class NewGameViewController: UIViewController {
         return button
     }()
     
+    
+    //MARK: - life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
@@ -45,6 +47,8 @@ class NewGameViewController: UIViewController {
         playerTableViewController.tableView.reloadData()
     }
     
+    
+    //MARK: - private functions
     private func configureNavigationBar(){
         navigationItem.largeTitleDisplayMode = .automatic
         navigationController?.navigationBar.prefersLargeTitles = true
@@ -88,15 +92,14 @@ class NewGameViewController: UIViewController {
         ])
     }
     
+    
+    //MARK: - selectors
     @objc private func cancelBarButtonItemHandler () {
         
     }
     
     @objc private func startButtonTapped(){
         navigationController?.pushViewController(GameProcessViewController(), animated: true)
-//        navigationItem.backBarButtonItem = UIBarButtonItem(title: "NewGame", style: .plain, target: nil, action: nil)
-        
-//        navigationItem.backBarButtonItem?.tintColor = UIColor.navigationBarButtonTextColor
     }
 }
 

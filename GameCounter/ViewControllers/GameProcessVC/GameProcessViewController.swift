@@ -10,34 +10,56 @@ import UIKit
 class GameProcessViewController: UIViewController {
     
     private var titleLeftInset:NSLayoutConstraint!
+    private var titleRightInset: NSLayoutConstraint!
     private var collectionViewHeight: NSLayoutConstraint!
     private let timer = TimerStackView()
+    private(set) var numberOfSelectedCell = 0
+
+    private lazy var newGameBarButtonItem: UIView = {
+        let button = UIButton(type: .custom)
+        button.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        let text = NSAttributedString(string: "New Game",
+                                      attributes: [.font:UIFont.navigationBarButtonTextFont!,
+                                                .foregroundColor: UIColor.navigationBarButtonTextColor])
+        button.setAttributedTitle(text, for: .normal)
+        
+        let view = UIView.init(frame: CGRect(x: 0, y: 0, width: 110, height: 50))
+        button.frame = view.frame
+        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: button.titleLabel?.frame.origin.x ?? 0.0)
+        view.addSubview(button)
+        
+        return view
+    }()
+    
+    private var resultsBarButtonItem: UIView = {
+        let button = UIButton(type: .custom)
+        button.addTarget(self, action: #selector(resultBarButtonIemTapped), for: .touchUpInside)
+        let text = NSAttributedString(string: "Results",
+                                      attributes: [.font:UIFont.navigationBarButtonTextFont!,
+                                                .foregroundColor: UIColor.navigationBarButtonTextColor])
+        button.setAttributedTitle(text, for: .normal)
+        button.titleLabel?.textAlignment = .right
+        button.contentHorizontalAlignment = .right
+        
+        let view = UIView.init(frame: CGRect(x: 0, y: 0, width: 110, height: 50))
+        button.frame = view.frame
+        view.addSubview(button)
+        
+        return view
+    }()
+    
     private let scoreCollectionViewController: ScoreCollectionViewController = {
         let controller = ScoreCollectionViewController.init(collectionViewLayout: ScoresCollectionViewFlowLayout())
         controller.collectionView.translatesAutoresizingMaskIntoConstraints = false
         return controller
     }()
     
-    private(set) var numberOfSelectedCell = 0
+
     
     private lazy var viewTitle: UIStackView = {
         let title = GameProcessTitleStackView()
         title.translatesAutoresizingMaskIntoConstraints = false
         return title
-    }()
-    
-    private lazy var collectionViewContainer: UIView = {
-        let container = UIView()
-        container.addSubview(scoreCollectionViewController.collectionView)
-        scoreCollectionViewController.collectionView.translatesAutoresizingMaskIntoConstraints = false
-        NSLayoutConstraint.activate([
-            container.topAnchor.constraint(equalTo: scoreCollectionViewController.collectionView.topAnchor),
-            container.leadingAnchor.constraint(equalTo: scoreCollectionViewController.collectionView.leadingAnchor),
-            container.trailingAnchor.constraint(equalTo: scoreCollectionViewController.collectionView.trailingAnchor),
-            container.bottomAnchor.constraint(equalTo: scoreCollectionViewController.collectionView.bottomAnchor)
-        ])
-        container.translatesAutoresizingMaskIntoConstraints = false
-        return container
     }()
     
     private let priviousNextButtonsStack: ScoreNavigationStackView = {
@@ -83,8 +105,8 @@ class GameProcessViewController: UIViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        titleLeftInset.constant = leftButton.convert(self.leftButton.frame, to: nil).minX
-
+        titleLeftInset.constant = newGameBarButtonItem.convert(self.newGameBarButtonItem.frame, to: nil).minX
+        titleRightInset.constant = -(view.safeAreaLayoutGuide.layoutFrame.width - resultsBarButtonItem.convert(self.resultsBarButtonItem.frame, to: nil).maxX)
     }
     
     //MARK: - private functions
@@ -101,13 +123,14 @@ class GameProcessViewController: UIViewController {
     
     private func configureConstraints(){
         titleLeftInset = viewTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        titleRightInset = viewTitle.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         collectionViewHeight = scoreCollectionViewController.collectionView.heightAnchor.constraint(equalToConstant:  view.frame.size.height / 2.7)
         
         
         NSLayoutConstraint.activate([
             titleLeftInset,
+            titleRightInset,
             viewTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            viewTitle.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             
             timer.topAnchor.constraint(equalTo: viewTitle.bottomAnchor, constant: 29),
             timer.centerXAnchor.constraint(equalTo: view.centerXAnchor),
@@ -136,19 +159,11 @@ class GameProcessViewController: UIViewController {
         navigationController?.navigationBar.isTranslucent = false
         
         navigationItem.leftItemsSupplementBackButton = false
-        navigationItem.leftBarButtonItem = UIBarButtonItem.init(customView: leftButton)
+        navigationItem.leftBarButtonItem = UIBarButtonItem.init(customView: newGameBarButtonItem)
         
-        navigationItem.leftBarButtonItem?.target = self
-        navigationItem.leftBarButtonItem?.action = #selector(backButtonTapped)
+        navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: resultsBarButtonItem)
     }
     
-    private func setCollectionViewLeftInset(){
-        guard let layout = scoreCollectionViewController.collectionView.collectionViewLayout as? UICollectionViewFlowLayout,
-              let cellWidth = layout.layoutAttributesForItem(at: IndexPath(item: 0, section: 0))?.frame.size.width,
-              cellWidth != 0.0  else {return}
-        let leftInset = (collectionViewContainer.frame.size.width - cellWidth) / 2
-        layout.sectionInset.left = leftInset
-    }
     
     private func changeScoreOfSelectedCell(by score: Int){
         let playerName = GameModel.shared.allPlayers[numberOfSelectedCell]
@@ -168,35 +183,19 @@ class GameProcessViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    private lazy var leftButton: UIView = {
-        let button = UIButton(type: .custom)
-        button.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
-        let text = NSAttributedString(string: "New Game",
-                                      attributes: [.font:UIFont.navigationBarButtonTextFont!,
-                                                .foregroundColor: UIColor.navigationBarButtonTextColor])
-        button.setAttributedTitle(text, for: .normal)
-        button.autoresizesSubviews = true
-        button.autoresizingMask = [.flexibleWidth , .flexibleHeight]
-        
-        let view = UIView.init(frame: CGRect(x: 0, y: 0, width: 110, height: 50))
-        button.frame = view.frame
-        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: button.titleLabel?.frame.origin.x ?? 0.0)
-        view.addSubview(button)
-        
-        return view
-    }()
+    
     
     @objc private func nextScoreButtonTapped(){
         guard 0...GameModel.shared.allPlayers.count - 2 ~= numberOfSelectedCell else {return}
-        scoreCollectionViewController.setOffsetForSelectedCell(withIndex: numberOfSelectedCell + 1)
         numberOfSelectedCell += 1
+        scoreCollectionViewController.setOffsetForSelectedCell(withIndex: numberOfSelectedCell)
         undoAndMiibarStack.setWhiteColorToCharachter(index: numberOfSelectedCell)
     }
     
     @objc private func priviousScoreButtonTapped(){
         guard 1...GameModel.shared.allPlayers.count - 1 ~= numberOfSelectedCell else {return}
-        scoreCollectionViewController.setOffsetForSelectedCell(withIndex: numberOfSelectedCell)
         numberOfSelectedCell -= 1
+        scoreCollectionViewController.setOffsetForSelectedCell(withIndex: numberOfSelectedCell)
         undoAndMiibarStack.setWhiteColorToCharachter(index: numberOfSelectedCell)
     }
     
@@ -225,6 +224,10 @@ class GameProcessViewController: UIViewController {
     }
     
     @objc private func undoButtonPressed(){
+        
+    }
+    
+    @objc private func resultBarButtonIemTapped(){
         
     }
 }

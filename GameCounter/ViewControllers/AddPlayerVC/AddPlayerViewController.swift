@@ -24,22 +24,16 @@ class AddPlayerViewController: UIViewController{
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.becomeFirstResponder()
         textField.delegate = self
+        textField.keyboardAppearance = .light
         
         return textField
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         configureNavigationItem()
-        
-        view.addSubview(nameTextField)
-        NSLayoutConstraint.activate([
-            nameTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 25),
-            nameTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            nameTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            nameTextField.heightAnchor.constraint(equalToConstant: 60)
-        ])
+        configureSubviews()
+        configureLayout()
     }
     
     private func configureNavigationItem() {
@@ -48,6 +42,19 @@ class AddPlayerViewController: UIViewController{
         barItem.isEnabled = false
         barItem.tintColor = UIColor.clear
         navigationItem.setRightBarButtonItems([barItem], animated: true)
+    }
+    
+    private func configureSubviews(){
+        view.addSubview(nameTextField)
+    }
+    
+    private func configureLayout(){
+        NSLayoutConstraint.activate([
+            nameTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 25),
+            nameTextField.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            nameTextField.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            nameTextField.heightAnchor.constraint(equalToConstant: 60)
+        ])
     }
     
     @objc private func addBarButtonHandler (){

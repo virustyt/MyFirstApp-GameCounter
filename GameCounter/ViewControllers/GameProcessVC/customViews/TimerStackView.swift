@@ -19,7 +19,6 @@ class TimerStackView: UIStackView {
         let label = UILabel()
         label.textAlignment = .center
         let paragraphStyle = NSMutableParagraphStyle()
-//        paragraphStyle.lineHeightMultiple = 1.07
         timerNumbersAttributes = [.font : timerFont,
                                   .paragraphStyle : paragraphStyle ,
                                   .foregroundColor : UIColor.timerColor]
@@ -33,7 +32,6 @@ class TimerStackView: UIStackView {
         button.imageView?.contentMode = .scaleAspectFit
         button.contentHorizontalAlignment = .fill
         button.contentVerticalAlignment = .fill
-//        button.backgroundColor = .blue
         button.addTarget(self, action: #selector(timerButtonPressed), for: .touchUpInside)
         return button
     }()

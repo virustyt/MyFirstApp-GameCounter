@@ -50,8 +50,7 @@ class PlayersTableViewController: UITableViewController {
                                                                                               .font: UIFont(name: "Nunito-ExtraBold", size: 20) ?? UIFont()])
         
         universalView.leftButton.layer.setValue(playerName, forKey: "playerName")
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(deleteButtomTapped))
-        universalView.stackView.addGestureRecognizer(tapGesture)
+        universalView.leftButton.addTarget(self, action: #selector(deleteButtomTapped), for: .touchUpInside)
         return cell
     }
     
@@ -72,6 +71,7 @@ class PlayersTableViewController: UITableViewController {
         else { fatalError("Header with udentifyer \(Identifiers.footer.rawValue) does noy exist.") }
         
         let universalView = getUniversalView(view: footer as UIView)
+        universalView.leftButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(addButtonTapped))
         universalView.addGestureRecognizer(tapGestureRecognizer)
         

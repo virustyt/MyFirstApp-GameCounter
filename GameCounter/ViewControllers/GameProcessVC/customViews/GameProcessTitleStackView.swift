@@ -13,16 +13,18 @@ class GameProcessTitleStackView: UIStackView {
     var rightImage: UIImage?
     
     private lazy var titleLabel: UILabel = {
-        let label = UILabel()
+        var label = UILabel()
         label.text = titleText ?? "Game"
         label.textColor = UIColor.white
         label.font = UIFont(name: "nunito-extrabold", size: 36)
+        label.setContentHuggingPriority(.defaultLow, for: .horizontal)
         return label
     }()
     
     private lazy var cubeImageView: UIImageView = {
         let image = UIImageView()
         image.image = rightImage ?? UIImage(named: "dice")
+        image.setContentHuggingPriority(.defaultHigh, for: .horizontal)
         return image
     }()
     

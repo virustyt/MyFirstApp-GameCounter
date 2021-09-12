@@ -9,7 +9,8 @@ import UIKit
 
 class GameProcessViewController: UIViewController {
     
-    private var constraintTitleLeadingAnchorInset:NSLayoutConstraint!
+    private var titleLeftInset:NSLayoutConstraint!
+    private var collectionViewHeight: NSLayoutConstraint!
     private let timer = TimerStackView()
     private let scoreCollectionViewController: ScoreCollectionViewController = {
         let controller = ScoreCollectionViewController.init(collectionViewLayout: ScoresCollectionViewFlowLayout())
@@ -17,7 +18,7 @@ class GameProcessViewController: UIViewController {
         return controller
     }()
     
-    private var numberOfSelectedCell = 0
+    private(set) var numberOfSelectedCell = 0
     
     private lazy var viewTitle: UIStackView = {
         let title = GameProcessTitleStackView()
@@ -69,6 +70,7 @@ class GameProcessViewController: UIViewController {
         return distanceBetweenCellsCenters
     }
     
+    
     //MARK: - life cycle methods
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -81,9 +83,8 @@ class GameProcessViewController: UIViewController {
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        constraintTitleLeadingAnchorInset.constant = leftButton.convert(self.leftButton.frame, to: nil).minX
-    
-//        setCollectionViewLeftInset()
+        titleLeftInset.constant = leftButton.convert(self.leftButton.frame, to: nil).minX
+
     }
     
     //MARK: - private functions
@@ -99,10 +100,12 @@ class GameProcessViewController: UIViewController {
     }
     
     private func configureConstraints(){
-        constraintTitleLeadingAnchorInset = viewTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor)
-        constraintTitleLeadingAnchorInset.isActive = true
+        titleLeftInset = viewTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor)
+        collectionViewHeight = scoreCollectionViewController.collectionView.heightAnchor.constraint(equalToConstant:  view.frame.size.height / 2.7)
+        
         
         NSLayoutConstraint.activate([
+            titleLeftInset,
             viewTitle.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             viewTitle.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             
@@ -112,19 +115,18 @@ class GameProcessViewController: UIViewController {
             scoreCollectionViewController.collectionView.topAnchor.constraint(equalTo: timer.bottomAnchor, constant: 42),
             scoreCollectionViewController.collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
             scoreCollectionViewController.collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            scoreCollectionViewController.collectionView.heightAnchor.constraint(equalToConstant: 300),
             
             priviousNextButtonsStack.topAnchor.constraint(equalTo: scoreCollectionViewController.collectionView.bottomAnchor, constant: 28),
-            priviousNextButtonsStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 46),
-            priviousNextButtonsStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -50),
+            priviousNextButtonsStack.leadingAnchor.constraint(equalTo: changeScoreButtonsStack.leadingAnchor),
+            priviousNextButtonsStack.trailingAnchor.constraint(equalTo: changeScoreButtonsStack.trailingAnchor),
             
             changeScoreButtonsStack.topAnchor.constraint(equalTo: priviousNextButtonsStack.bottomAnchor, constant: 22),
-            changeScoreButtonsStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 20),
-            changeScoreButtonsStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            changeScoreButtonsStack.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             
             undoAndMiibarStack.topAnchor.constraint(equalTo: changeScoreButtonsStack.bottomAnchor, constant: 20),
             undoAndMiibarStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 40),
-            undoAndMiibarStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -40)
+            undoAndMiibarStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -40),
+            undoAndMiibarStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
     
@@ -155,6 +157,12 @@ class GameProcessViewController: UIViewController {
         scoreCollectionViewController.collectionView.reloadItems(at: [IndexPath(item: numberOfSelectedCell, section: 0)])
     }
     
+    func setOffsetForCell(by index: Int){
+        let nextXOffset = distanceBetweenCellsCenters * CGFloat(numberOfSelectedCell + 1)
+        let nextpoint = CGPoint(x: nextXOffset, y: 0)
+        scoreCollectionViewController.collectionView.setContentOffset(nextpoint, animated: true)
+    }
+    
     //MARK: - selectors
     @objc private func backButtonTapped(){
         navigationController?.popViewController(animated: true)
@@ -180,18 +188,14 @@ class GameProcessViewController: UIViewController {
     
     @objc private func nextScoreButtonTapped(){
         guard 0...GameModel.shared.allPlayers.count - 2 ~= numberOfSelectedCell else {return}
-        let nextXOffset = distanceBetweenCellsCenters * CGFloat(numberOfSelectedCell + 1)
-        let nextpoint = CGPoint(x: nextXOffset, y: 0)
-        scoreCollectionViewController.collectionView.setContentOffset(nextpoint, animated: true)
+        scoreCollectionViewController.setOffsetForSelectedCell(withIndex: numberOfSelectedCell + 1)
         numberOfSelectedCell += 1
         undoAndMiibarStack.setWhiteColorToCharachter(index: numberOfSelectedCell)
     }
     
     @objc private func priviousScoreButtonTapped(){
         guard 1...GameModel.shared.allPlayers.count - 1 ~= numberOfSelectedCell else {return}
-        let nextXOffset = distanceBetweenCellsCenters * CGFloat(numberOfSelectedCell - 1)
-        let nextpoint = CGPoint(x: nextXOffset, y: 0)
-        scoreCollectionViewController.collectionView.setContentOffset(nextpoint, animated: true)
+        scoreCollectionViewController.setOffsetForSelectedCell(withIndex: numberOfSelectedCell)
         numberOfSelectedCell -= 1
         undoAndMiibarStack.setWhiteColorToCharachter(index: numberOfSelectedCell)
     }

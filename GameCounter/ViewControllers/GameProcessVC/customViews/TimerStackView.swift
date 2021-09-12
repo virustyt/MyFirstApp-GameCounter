@@ -13,15 +13,16 @@ class TimerStackView: UIStackView {
     private var timerPaused = true
     private var timer = Timer()
     private var timerNumbersAttributes = [NSAttributedString.Key: Any]()
+    private let timerFont = UIFont(name: "nunito-extrabold", size: UIScreen.main.bounds.size.width / 13.4) ?? UIFont()
         
     private lazy var timeLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.lineHeightMultiple = 1.07
-        timerNumbersAttributes = [.font : UIFont(name: "Nunito-ExtraBold", size: 28) ?? UIFont(),
-                                                             .paragraphStyle : paragraphStyle ,
-                                                             .foregroundColor : UIColor.timerColor]
+//        paragraphStyle.lineHeightMultiple = 1.07
+        timerNumbersAttributes = [.font : timerFont,
+                                  .paragraphStyle : paragraphStyle ,
+                                  .foregroundColor : UIColor.timerColor]
         label.attributedText = NSAttributedString(string: "00:00", attributes: timerNumbersAttributes)
         return label
     }()
@@ -29,6 +30,10 @@ class TimerStackView: UIStackView {
     private lazy var pauseResumeButton: UIButton = {
         let button = UIButton()
         button.setImage(UIImage(named: "play"), for: .normal)
+        button.imageView?.contentMode = .scaleAspectFit
+        button.contentHorizontalAlignment = .fill
+        button.contentVerticalAlignment = .fill
+//        button.backgroundColor = .blue
         button.addTarget(self, action: #selector(timerButtonPressed), for: .touchUpInside)
         return button
     }()
@@ -41,6 +46,9 @@ class TimerStackView: UIStackView {
         distribution = .fill
         spacing = 20
         translatesAutoresizingMaskIntoConstraints = false
+        
+        pauseResumeButton.heightAnchor.constraint(equalTo: pauseResumeButton.widthAnchor).isActive = true
+        pauseResumeButton.heightAnchor.constraint(equalToConstant: timerFont.capHeight).isActive = true
     }
     
     private func pauseTimer() {
@@ -72,3 +80,4 @@ class TimerStackView: UIStackView {
         fatalError("init(coder:) has not been implemented")
     }
 }
+

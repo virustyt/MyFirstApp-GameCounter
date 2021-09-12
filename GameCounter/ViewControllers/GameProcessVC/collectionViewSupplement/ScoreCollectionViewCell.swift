@@ -11,6 +11,8 @@ class ScoreCollectionViewCell: UICollectionViewCell {
     lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.setContentHuggingPriority(.defaultHigh, for: .vertical)
+        label.minimumScaleFactor = 0.5
+        label.adjustsFontSizeToFitWidth = true
         return label
     }()
     

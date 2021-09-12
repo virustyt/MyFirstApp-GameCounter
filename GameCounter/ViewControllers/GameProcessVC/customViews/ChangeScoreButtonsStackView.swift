@@ -46,6 +46,7 @@ class ChangeScoreButtonsStackView: UIStackView {
         addArrangedSubview(minusOneButton)
         addArrangedSubview(minusFiveButton)
         addArrangedSubview(minusTenButton)
+        spacing = 15
         distribution = .equalSpacing
         alignment = .center
         translatesAutoresizingMaskIntoConstraints = false

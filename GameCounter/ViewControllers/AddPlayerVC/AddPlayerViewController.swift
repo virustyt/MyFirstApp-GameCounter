@@ -63,7 +63,7 @@ class AddPlayerViewController: UIViewController{
               !GameModel.shared.allPlayers.contains(newName)
               else {return}
         GameModel.shared.allPlayers.append(newName)
-        GameModel.shared.playersScores[newName] = 0
+        GameModel.shared.playersScores[newName] = [0]
         navigationController?.popViewController(animated: true)
     }
 }

@@ -31,15 +31,12 @@ class ScoreCollectionViewController: UICollectionViewController, UICollectionVie
         collectionView.delegate = self
         self.collectionView!.register(ScoreCollectionViewCell.self, forCellWithReuseIdentifier: scoreCellIdentifier)
     }
-    
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        true
-    }
 
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         collectionView.reloadData()
     }
+    
     
     // MARK: - Navigation
 
@@ -69,7 +66,7 @@ class ScoreCollectionViewController: UICollectionViewController, UICollectionVie
                                                              .paragraphStyle : paragrafStyle]
         cell.nameLabel.attributedText = NSAttributedString(string: playerName, attributes: nameAttributes)
 
-        guard let playerScore = GameModel.shared.playersScores[playerName] else {fatalError("Score for player \(playerName) does not exist.")}
+        guard let playerScore = GameModel.shared.playersScores[playerName]?.reduce(0, {$0 + $1}) else {fatalError("Score for player \(playerName) does not exist.")}
         let paragraphStyle = NSMutableParagraphStyle()
         paragraphStyle.lineHeightMultiple = 0.3
         let scoreAttributes: [NSAttributedString.Key: Any] = [.font : UIFont(name: "nunito-bold", size: fontSizeForScore) ?? UIFont.systemFont(ofSize: 28),
@@ -92,6 +89,7 @@ class ScoreCollectionViewController: UICollectionViewController, UICollectionVie
         let leftInset = (collectionViewFrameWidth - cellWidth) / 2
         return UIEdgeInsets(top: 0, left: leftInset, bottom: 0, right: leftInset)
     }
+    
     
     
     //MARK: - selectors

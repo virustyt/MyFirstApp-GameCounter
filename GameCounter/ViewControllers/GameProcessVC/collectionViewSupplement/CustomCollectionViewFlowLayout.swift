@@ -16,6 +16,8 @@ class ScoresCollectionViewFlowLayout: UICollectionViewFlowLayout {
                 cv.setContentOffset(getCGPointForCellCenter(withIndex: numberOfCellInCenter), animated: true)
                 NotificationCenter.default.post(name: .centeredCellDidChange, object: Self.self)
             } else {
+                guard let cv = collectionView else {return}
+                cv.setContentOffset(getCGPointForCellCenter(withIndex: oldValue), animated: true)
                 numberOfCellInCenter = oldValue
             }
         }
@@ -46,11 +48,11 @@ class ScoresCollectionViewFlowLayout: UICollectionViewFlowLayout {
               cv.numberOfItems(inSection: 0) > 0 else {return CGPoint()}
         
         if velocity.x > 0  {
-            return getCGPointForNextCellCenter()
-        } else if velocity.x <= 0 {
-            return getCGPointForPreviousCellCenter()
+            numberOfCellInCenter += 1
+        } else if velocity.x < 0 {
+            numberOfCellInCenter -= 1
         }
-        return proposedContentOffset
+        return getCGPointForCellCenter(withIndex: numberOfCellInCenter)
     }
     
     required init?(coder: NSCoder) {
@@ -61,20 +63,6 @@ class ScoresCollectionViewFlowLayout: UICollectionViewFlowLayout {
         guard collectionView?.numberOfItems(inSection: 0) != 0 else {return 0.0}
         let distanceBetweenCellsCenters = cellWidth + minimumLineSpacing
         return distanceBetweenCellsCenters
-    }
-    
-    private func getCGPointForNextCellCenter() -> CGPoint{
-        guard 0...GameModel.shared.allPlayers.count - 2 ~= numberOfCellInCenter
-        else {return getCGPointForCellCenter(withIndex: numberOfCellInCenter)}
-        numberOfCellInCenter += 1
-        return getCGPointForCellCenter(withIndex: numberOfCellInCenter)
-    }
-    
-    private func getCGPointForPreviousCellCenter() -> CGPoint{
-        guard 1...GameModel.shared.allPlayers.count - 1 ~= numberOfCellInCenter
-        else {return getCGPointForCellCenter(withIndex: numberOfCellInCenter)}
-        numberOfCellInCenter -= 1
-        return getCGPointForCellCenter(withIndex: numberOfCellInCenter)
     }
     
     func getCGPointForCellCenter(withIndex: Int) -> CGPoint{

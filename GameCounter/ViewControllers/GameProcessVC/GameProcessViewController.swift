@@ -184,7 +184,7 @@ class GameProcessViewController: UIViewController {
     private func changeScoreOfSelectedCell(by score: Int){
         let playerName = GameModel.shared.allPlayers[numberOfcellInCenter]
         guard let playerScore = GameModel.shared.playersScores[playerName] else {return}
-        GameModel.shared.playersScores[playerName] = playerScore + score
+        GameModel.shared.playersScores[playerName] = playerScore + [score]
         scoreCollectionViewController.collectionView.reloadItems(at: [IndexPath(item: numberOfcellInCenter, section: 0)])
     }
     
@@ -211,30 +211,42 @@ class GameProcessViewController: UIViewController {
     
     @objc private func plusOneButtonTapped(){
         changeScoreOfSelectedCell(by: +1)
+        setNextCellToCenter()
     }
     
     @objc private func plusFiveButtonTapped(){
         changeScoreOfSelectedCell(by: +5)
+        setNextCellToCenter()
     }
     
     @objc private func plusTenButtonTapped(){
         changeScoreOfSelectedCell(by: +10)
+        setNextCellToCenter()
     }
     
     @objc private func minusOneButtonTapped(){
         changeScoreOfSelectedCell(by: -1)
+        setNextCellToCenter()
     }
     
     @objc private func minusFiveButtonTapped(){
         changeScoreOfSelectedCell(by: -5)
+        setNextCellToCenter()
     }
     
     @objc private func minusTenButtonTapped(){
         changeScoreOfSelectedCell(by: -10)
+        setNextCellToCenter()
     }
     
     @objc private func undoButtonPressed(){
-        
+        let playerName = GameModel.shared.allPlayers[numberOfcellInCenter]
+        guard let playerScore = GameModel.shared.playersScores[playerName] else {return}
+        print(GameModel.shared.playersScores[playerName]!)
+        GameModel.shared.playersScores[playerName] = playerScore.count > 1 ? playerScore.dropLast() : playerScore
+        print(GameModel.shared.playersScores[playerName]!)
+        scoreCollectionViewController.collectionView.reloadItems(at: [IndexPath(item: numberOfcellInCenter, section: 0)])
+        setPriviousCellToCenter()
     }
     
     @objc private func resultBarButtonIemTapped(){

@@ -13,7 +13,19 @@ class GameProcessViewController: UIViewController {
     private var titleRightInset: NSLayoutConstraint!
     private var collectionViewHeight: NSLayoutConstraint!
     private let timer = TimerStackView()
-    private(set) var numberOfSelectedCell = 0
+    
+    private var numberOfcellInCenter:Int  {
+        get{
+            guard  let flowlayout = scoreCollectionViewController.collectionViewLayout as? ScoresCollectionViewFlowLayout
+            else {return 0}
+            return flowlayout.numberOfCellInCenter
+        }
+        set{
+            guard  let flowlayout = scoreCollectionViewController.collectionViewLayout as? ScoresCollectionViewFlowLayout
+            else {return}
+            flowlayout.numberOfCellInCenter = newValue
+        }
+    }
 
     private lazy var newGameBarButtonItem: UIView = {
         let button = UIButton(type: .custom)
@@ -48,13 +60,12 @@ class GameProcessViewController: UIViewController {
         return view
     }()
     
-    private let scoreCollectionViewController: ScoreCollectionViewController = {
+    private lazy var scoreCollectionViewController: ScoreCollectionViewController = {
         let controller = ScoreCollectionViewController.init(collectionViewLayout: ScoresCollectionViewFlowLayout())
         controller.collectionView.translatesAutoresizingMaskIntoConstraints = false
+        NotificationCenter.default.addObserver(self, selector: #selector(centeredCellDidChange), name: .centeredCellDidChange, object: nil)
         return controller
     }()
-    
-
     
     private lazy var viewTitle: UIStackView = {
         let title = GameProcessTitleStackView()
@@ -64,9 +75,9 @@ class GameProcessViewController: UIViewController {
     
     private let priviousNextButtonsStack: ScoreNavigationStackView = {
         let stack = ScoreNavigationStackView()
-        stack.priviousButton.addTarget(self, action: #selector(priviousScoreButtonTapped), for: .touchUpInside)
+        stack.priviousButton.addTarget(self, action: #selector(priviousCellButtonTapped), for: .touchUpInside)
         stack.plusOneButton.addTarget(self, action: #selector(plusOneButtonTapped), for: .touchUpInside)
-        stack.nextButton.addTarget(self, action: #selector(nextScoreButtonTapped), for: .touchUpInside)
+        stack.nextButton.addTarget(self, action: #selector(nextCellButtonTapped), for: .touchUpInside)
         return stack
     }()
     
@@ -107,6 +118,11 @@ class GameProcessViewController: UIViewController {
         super.viewDidLayoutSubviews()
         titleLeftInset.constant = newGameBarButtonItem.convert(self.newGameBarButtonItem.frame, to: nil).minX
         titleRightInset.constant = -(view.safeAreaLayoutGuide.layoutFrame.width - resultsBarButtonItem.convert(self.resultsBarButtonItem.frame, to: nil).maxX)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: .centeredCellDidChange, object: nil)
     }
     
     //MARK: - private functions
@@ -166,16 +182,18 @@ class GameProcessViewController: UIViewController {
     
     
     private func changeScoreOfSelectedCell(by score: Int){
-        let playerName = GameModel.shared.allPlayers[numberOfSelectedCell]
+        let playerName = GameModel.shared.allPlayers[numberOfcellInCenter]
         guard let playerScore = GameModel.shared.playersScores[playerName] else {return}
         GameModel.shared.playersScores[playerName] = playerScore + score
-        scoreCollectionViewController.collectionView.reloadItems(at: [IndexPath(item: numberOfSelectedCell, section: 0)])
+        scoreCollectionViewController.collectionView.reloadItems(at: [IndexPath(item: numberOfcellInCenter, section: 0)])
     }
     
-    func setOffsetForCell(by index: Int){
-        let nextXOffset = distanceBetweenCellsCenters * CGFloat(numberOfSelectedCell + 1)
-        let nextpoint = CGPoint(x: nextXOffset, y: 0)
-        scoreCollectionViewController.collectionView.setContentOffset(nextpoint, animated: true)
+    private func setNextCellToCenter(){
+        numberOfcellInCenter += 1
+    }
+    
+    private func setPriviousCellToCenter(){
+        numberOfcellInCenter -= 1
     }
     
     //MARK: - selectors
@@ -183,20 +201,12 @@ class GameProcessViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    
-    
-    @objc private func nextScoreButtonTapped(){
-        guard 0...GameModel.shared.allPlayers.count - 2 ~= numberOfSelectedCell else {return}
-        numberOfSelectedCell += 1
-        scoreCollectionViewController.setOffsetForSelectedCell(withIndex: numberOfSelectedCell)
-        undoAndMiibarStack.setWhiteColorToCharachter(index: numberOfSelectedCell)
+    @objc private func nextCellButtonTapped(){
+        setNextCellToCenter()
     }
     
-    @objc private func priviousScoreButtonTapped(){
-        guard 1...GameModel.shared.allPlayers.count - 1 ~= numberOfSelectedCell else {return}
-        numberOfSelectedCell -= 1
-        scoreCollectionViewController.setOffsetForSelectedCell(withIndex: numberOfSelectedCell)
-        undoAndMiibarStack.setWhiteColorToCharachter(index: numberOfSelectedCell)
+    @objc private func priviousCellButtonTapped(){
+        setPriviousCellToCenter()
     }
     
     @objc private func plusOneButtonTapped(){
@@ -229,5 +239,15 @@ class GameProcessViewController: UIViewController {
     
     @objc private func resultBarButtonIemTapped(){
         
+    }
+    
+    @objc private func centeredCellDidChange() {
+        undoAndMiibarStack.setWhiteColorToCharachter(index: numberOfcellInCenter)
+    }
+}
+
+extension GameProcessViewController: UIGestureRecognizerDelegate {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        return true
     }
 }

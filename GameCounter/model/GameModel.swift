@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct GameModel {
+struct GameModel: Codable {
     static var shared = GameModel()
     
     var playersScores = [String : [Int]]()
@@ -23,6 +23,4 @@ struct GameModel {
         playersScores["July"] = [0]
         playersScores["Betty"] = [0]
     }
-    
-    
 }

@@ -63,7 +63,7 @@ class GameProcessViewController: UIViewController {
     private lazy var scoreCollectionViewController: ScoreCollectionViewController = {
         let controller = ScoreCollectionViewController.init(collectionViewLayout: ScoresCollectionViewFlowLayout())
         controller.collectionView.translatesAutoresizingMaskIntoConstraints = false
-        NotificationCenter.default.addObserver(self, selector: #selector(centeredCellDidChange), name: .centeredCellDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(centeredCellDidChangeBySwipe), name: .centeredCellDidChange, object: nil)
         return controller
     }()
     
@@ -123,6 +123,14 @@ class GameProcessViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self, name: .centeredCellDidChange, object: nil)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        GameModel.shared.secondsPassed = timer.secondsPassed
+        guard let flowLayout = scoreCollectionViewController.collectionViewLayout as? ScoresCollectionViewFlowLayout
+        else {return}
+        GameModel.shared.currentPlayer = flowLayout.numberOfCellInCenter
     }
     
     //MARK: - private functions
@@ -189,11 +197,19 @@ class GameProcessViewController: UIViewController {
     }
     
     private func setNextCellToCenter(){
-        numberOfcellInCenter += 1
+        if numberOfcellInCenter == GameModel.shared.allPlayers.count - 1 {
+            numberOfcellInCenter = 0
+        } else {
+            numberOfcellInCenter += 1
+        }
     }
     
     private func setPriviousCellToCenter(){
-        numberOfcellInCenter -= 1
+        if numberOfcellInCenter == 0 {
+            numberOfcellInCenter = GameModel.shared.allPlayers.count - 1
+        } else {
+            numberOfcellInCenter -= 1
+        }
     }
     
     //MARK: - selectors
@@ -253,13 +269,8 @@ class GameProcessViewController: UIViewController {
         
     }
     
-    @objc private func centeredCellDidChange() {
+    @objc private func centeredCellDidChangeBySwipe(notification: Notification) {
         undoAndMiibarStack.setWhiteColorToCharachter(index: numberOfcellInCenter)
     }
 }
 
-extension GameProcessViewController: UIGestureRecognizerDelegate {
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return true
-    }
-}

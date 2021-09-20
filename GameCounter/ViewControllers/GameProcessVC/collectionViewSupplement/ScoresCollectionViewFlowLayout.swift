@@ -11,15 +11,22 @@ class ScoresCollectionViewFlowLayout: UICollectionViewFlowLayout {
     
     var numberOfCellInCenter:Int = 0 {
         didSet{
+            guard let cv = collectionView else {return}
+            
             if 0...GameModel.shared.allPlayers.count - 1 ~= numberOfCellInCenter {
-                guard let cv = collectionView else {return}
                 cv.setContentOffset(getCGPointForCellCenter(withIndex: numberOfCellInCenter), animated: true)
-                NotificationCenter.default.post(name: .centeredCellDidChange, object: Self.self)
             } else {
-                guard let cv = collectionView else {return}
-                cv.setContentOffset(getCGPointForCellCenter(withIndex: oldValue), animated: true)
-                numberOfCellInCenter = oldValue
+                guard let numberOfItems = collectionView?.numberOfItems(inSection: 0)
+                else {return}
+                if numberOfCellInCenter < 0 {
+                    numberOfCellInCenter = numberOfItems - 1
+                    cv.setContentOffset(getCGPointForCellCenter(withIndex: numberOfCellInCenter), animated: true)
+                }
+                if numberOfCellInCenter > cv.numberOfItems(inSection: 0) - 1 {
+                    numberOfCellInCenter = 0
+                }
             }
+            NotificationCenter.default.post(name: .centeredCellDidChange, object: self.self)
         }
     }
     

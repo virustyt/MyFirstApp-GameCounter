@@ -9,7 +9,7 @@ import UIKit
 
 class TimerStackView: UIStackView {
 
-    private var secondsPassed = 0
+    private(set) var secondsPassed = 0
     private var timerPaused = true
     private var timer = Timer()
     private var timerNumbersAttributes = [NSAttributedString.Key: Any]()

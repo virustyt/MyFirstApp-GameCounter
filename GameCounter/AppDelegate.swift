@@ -44,13 +44,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func applicationWillTerminate(_ application: UIApplication) {
-        guard let navigationController = application.keyWindow?.rootViewController as? UINavigationController,
-              let gameProcessController = navigationController.children.first(where: {$0 as? GameProcessViewController != nil}) as? GameProcessViewController else {return}
-        let encoder = JSONEncoder()
-        let data = try? encoder.encode(GameModel.shared)
-        try? data?.write(to: FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true))
+       
     }
     
-    
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        //if GameProcessVC was las vc that user have on screen than save game stats, else delete all such savings
+        guard let navigationController = application.keyWindow?.rootViewController as? UINavigationController,
+              let appWasInGameSession = navigationController.topViewController?.isKind(of: GameProcessViewController.self),
+              appWasInGameSession == true
+        else {
+            //deleteing file with savings of last game stats
+            guard let urlForData = try? FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appendingPathComponent("GameModel").appendingPathExtension(".json") else {return}
+            try? FileManager.default.removeItem(at: urlForData)
+            return
+        }
+        //wiiting file with stats of last game for storing
+        let encoder = JSONEncoder()
+        let data = try? encoder.encode(GameModel.shared)
+        guard let urlForData = try? FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appendingPathComponent("GameModel").appendingPathExtension(".json") else {return}
+        try? data?.write(to: urlForData, options: .atomic)
+    }
 }
 

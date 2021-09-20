@@ -32,16 +32,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
-        // Called as the scene is being released by the system.
-        // This occurs shortly after the scene enters the background, or when its session is discarded.
-        // Release any resources associated with this scene that can be re-created the next time the scene connects.
-        // The scene may re-connect later, as its session was not necessarily discarded (see `application:didDiscardSceneSessions` instead).
-        if scene.activationState == .unattached {
-            let encoder = JSONEncoder()
-            let data = try? encoder.encode(GameModel.shared)
+        //if GameProcessVC was las vc that user have on screen than save game stats, else delete all such savings
+        guard let navigationController = window?.rootViewController as? UINavigationController,
+              let appWasInGameSession = navigationController.topViewController?.isKind(of: GameProcessViewController.self),
+              appWasInGameSession == true
+        else {
+            //deleteing file with savings of last game stats
             guard let urlForData = try? FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appendingPathComponent("GameModel").appendingPathExtension(".json") else {return}
-            try? data?.write(to: urlForData)
+            try? FileManager.default.removeItem(at: urlForData)
+            return
         }
+        //wiiting file with stats of last game for storing
+        let encoder = JSONEncoder()
+        let data = try? encoder.encode(GameModel.shared)
+        guard let urlForData = try? FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appendingPathComponent("GameModel").appendingPathExtension(".json") else {return}
+        try? data?.write(to: urlForData, options: .atomic)
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
@@ -63,9 +68,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
+//        let encoder = JSONEncoder()
+//        let data = try? encoder.encode(GameModel.shared)
+//        try? data?.write(to: FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true),options: .atomicWrite)
     }
-
-
-
 }
 

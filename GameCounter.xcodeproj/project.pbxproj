@@ -31,7 +31,7 @@
 		849D55B926F0BADB004B6B77 /* NotificationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849D55B826F0BADB004B6B77 /* NotificationExtension.swift */; };
 		84BD57BE26E2830200CD6E4B /* ScoreCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BD57BD26E2830200CD6E4B /* ScoreCollectionViewCell.swift */; };
 		84BD57C026E284B000CD6E4B /* ScoreCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BD57BF26E284B000CD6E4B /* ScoreCollectionViewController.swift */; };
-		84BD57C426E2979600CD6E4B /* CustomCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BD57C326E2979600CD6E4B /* CustomCollectionViewFlowLayout.swift */; };
+		84BD57C426E2979600CD6E4B /* ScoresCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BD57C326E2979600CD6E4B /* ScoresCollectionViewFlowLayout.swift */; };
 		84F05A4026F7A5F400EAA2D5 /* FileManagerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F05A3F26F7A5F400EAA2D5 /* FileManagerExtension.swift */; };
 		84FE9C2B26D8D4B600419838 /* nunito-semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84FE9C2926D8D4B600419838 /* nunito-semibold.ttf */; };
 		84FE9C2C26D8D4B600419838 /* nunito-extrabold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84FE9C2A26D8D4B600419838 /* nunito-extrabold.ttf */; };
@@ -67,7 +67,7 @@
 		849D55B826F0BADB004B6B77 /* NotificationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationExtension.swift; sourceTree = "<group>"; };
 		84BD57BD26E2830200CD6E4B /* ScoreCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreCollectionViewCell.swift; sourceTree = "<group>"; };
 		84BD57BF26E284B000CD6E4B /* ScoreCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreCollectionViewController.swift; sourceTree = "<group>"; };
-		84BD57C326E2979600CD6E4B /* CustomCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
+		84BD57C326E2979600CD6E4B /* ScoresCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		84F05A3F26F7A5F400EAA2D5 /* FileManagerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerExtension.swift; sourceTree = "<group>"; };
 		84FE9C2926D8D4B600419838 /* nunito-semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "nunito-semibold.ttf"; sourceTree = "<group>"; };
 		84FE9C2A26D8D4B600419838 /* nunito-extrabold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "nunito-extrabold.ttf"; sourceTree = "<group>"; };
@@ -134,7 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				84BD57BD26E2830200CD6E4B /* ScoreCollectionViewCell.swift */,
-				84BD57C326E2979600CD6E4B /* CustomCollectionViewFlowLayout.swift */,
+				84BD57C326E2979600CD6E4B /* ScoresCollectionViewFlowLayout.swift */,
 			);
 			path = collectionViewSupplement;
 			sourceTree = "<group>";
@@ -321,7 +321,7 @@
 				846A144C26DB9A4D0069F766 /* UniversalView.swift in Sources */,
 				84436EA426E89E25007A5F2C /* ScoreNavigationStackView.swift in Sources */,
 				846A144E26DBD7CB0069F766 /* AddPlayerTextField.swift in Sources */,
-				84BD57C426E2979600CD6E4B /* CustomCollectionViewFlowLayout.swift in Sources */,
+				84BD57C426E2979600CD6E4B /* ScoresCollectionViewFlowLayout.swift in Sources */,
 				8432A11F26D7DE9400845006 /* PlayersTableViewController.swift in Sources */,
 				8484702426EB83E500C1CBC4 /* ChangeScoreButtonsStackView.swift in Sources */,
 				8432A10F26D7D20500845006 /* NewGameViewController.swift in Sources */,

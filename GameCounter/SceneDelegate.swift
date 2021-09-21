@@ -21,32 +21,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         
         window = UIWindow(windowScene: scene)
-        window?.rootViewController = UINavigationController(rootViewController: NewGameViewController())
         window?.makeKeyAndVisible()
         
         guard let urlForData = FileManager.urlForGameModel else {return}
         let decoder = JSONDecoder()
         guard let data = try? Data(contentsOf: urlForData),
-              let lastSavedGameModel = try? decoder.decode(GameModel.self, from: data) else {return}
+              let lastSavedGameModel = try? decoder.decode(GameModel.self, from: data)
+        else {
+            window?.rootViewController = UINavigationController(rootViewController: NewGameViewController())
+            return
+        }
         GameModel.shared = lastSavedGameModel
+        window?.rootViewController = UINavigationController(rootViewController: GameProcessViewController())
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
-        //if GameProcessVC was las vc that user have on screen than save game stats, else delete all such savings
-        guard let navigationController = window?.rootViewController as? UINavigationController,
-              let appWasInGameSession = navigationController.topViewController?.isKind(of: GameProcessViewController.self),
-              appWasInGameSession == true
-        else {
-            //deleteing file with savings of last game stats
-            guard let urlForData = try? FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appendingPathComponent("GameModel").appendingPathExtension(".json") else {return}
-            try? FileManager.default.removeItem(at: urlForData)
-            return
-        }
-        //wiiting file with stats of last game for storing
-        let encoder = JSONEncoder()
-        let data = try? encoder.encode(GameModel.shared)
-        guard let urlForData = try? FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appendingPathComponent("GameModel").appendingPathExtension(".json") else {return}
-        try? data?.write(to: urlForData, options: .atomic)
     }
 
     func sceneDidBecomeActive(_ scene: UIScene) {
@@ -64,13 +53,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to undo the changes made on entering the background.
     }
 
-    func sceneDidEnterBackground(_ scene: UIScene) {
-        // Called as the scene transitions from the foreground to the background.
-        // Use this method to save data, release shared resources, and store enough scene-specific state information
-        // to restore the scene back to its current state.
-//        let encoder = JSONEncoder()
-//        let data = try? encoder.encode(GameModel.shared)
-//        try? data?.write(to: FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true),options: .atomicWrite)
+    func sceneDidEnterBackground(_ scene: UIScene) {        
+        //if GameProcessVC was las vc that user have on screen than save game stats, else delete all such savings
+        guard let navigationController = window?.rootViewController as? UINavigationController,
+              let appWasInGameSession = navigationController.topViewController?.isKind(of: GameProcessViewController.self),
+              appWasInGameSession == true
+        else {
+            //deleteing file with savings of last game stats
+            guard let urlForData = FileManager.urlForGameModel else {return}
+            try? FileManager.default.removeItem(at: urlForData)
+            return
+        }
+        
+        //wiiting file with stats of last game for storing
+        let encoder = JSONEncoder()
+        let data = try? encoder.encode(GameModel.shared)
+        guard let urlForData = FileManager.urlForGameModel else {return}
+        try? data?.write(to: urlForData, options: .atomic)
     }
 }
 

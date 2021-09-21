@@ -15,6 +15,7 @@
 		8432A11726D7D20B00845006 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8432A11526D7D20B00845006 /* LaunchScreen.storyboard */; };
 		8432A11F26D7DE9400845006 /* PlayersTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8432A11E26D7DE9400845006 /* PlayersTableViewController.swift */; };
 		8432A12226D7E61000845006 /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8432A12126D7E61000845006 /* Storyboard.storyboard */; };
+		843547DC26F9FDAA00B00D5E /* GameProcessVCExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 843547DB26F9FDAA00B00D5E /* GameProcessVCExtension.swift */; };
 		84436EA426E89E25007A5F2C /* ScoreNavigationStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84436EA326E89E25007A5F2C /* ScoreNavigationStackView.swift */; };
 		844D144026DEB6A40021BEDD /* TimerStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 844D143F26DEB6A40021BEDD /* TimerStackView.swift */; };
 		84548BB626DCCCA600399D04 /* TextStyles.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84548BB526DCCCA600399D04 /* TextStyles.swift */; };
@@ -51,6 +52,7 @@
 		8432A11826D7D20B00845006 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8432A11E26D7DE9400845006 /* PlayersTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersTableViewController.swift; sourceTree = "<group>"; };
 		8432A12126D7E61000845006 /* Storyboard.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Storyboard.storyboard; sourceTree = "<group>"; };
+		843547DB26F9FDAA00B00D5E /* GameProcessVCExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameProcessVCExtension.swift; sourceTree = "<group>"; };
 		84436EA326E89E25007A5F2C /* ScoreNavigationStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreNavigationStackView.swift; sourceTree = "<group>"; };
 		844D143F26DEB6A40021BEDD /* TimerStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimerStackView.swift; sourceTree = "<group>"; };
 		84548BB526DCCCA600399D04 /* TextStyles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextStyles.swift; sourceTree = "<group>"; };
@@ -216,6 +218,7 @@
 			children = (
 				849D55B826F0BADB004B6B77 /* NotificationExtension.swift */,
 				84F05A3F26F7A5F400EAA2D5 /* FileManagerExtension.swift */,
+				843547DB26F9FDAA00B00D5E /* GameProcessVCExtension.swift */,
 			);
 			path = extensions;
 			sourceTree = "<group>";
@@ -331,6 +334,7 @@
 				848C997126DA554500E8914D /* footerForPlayersNameTableView.swift in Sources */,
 				84548BB926DCCE6900399D04 /* AppColorsUIColorExtension.swift in Sources */,
 				8432A10B26D7D20500845006 /* AppDelegate.swift in Sources */,
+				843547DC26F9FDAA00B00D5E /* GameProcessVCExtension.swift in Sources */,
 				8484702826EBA43900C1CBC4 /* UndoAndMinibarStack.swift in Sources */,
 				8432A10D26D7D20500845006 /* SceneDelegate.swift in Sources */,
 				84BD57C026E284B000CD6E4B /* ScoreCollectionViewController.swift in Sources */,

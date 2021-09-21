@@ -12,7 +12,12 @@ class GameProcessViewController: UIViewController {
     private var titleLeftInset:NSLayoutConstraint!
     private var titleRightInset: NSLayoutConstraint!
     private var collectionViewHeight: NSLayoutConstraint!
-    private let timer = TimerStackView()
+    private lazy var timer:TimerStackView = {
+        let timer = TimerStackView(seconds: GameModel.shared.secondsPassed)
+        if GameModel.shared.secondsPassed != 0 { timer.timerPaused = false }
+        timer.delegate = self
+        return timer
+    }()
     
     private var numberOfcellInCenter:Int  {
         get{
@@ -29,7 +34,7 @@ class GameProcessViewController: UIViewController {
 
     private lazy var newGameBarButtonItem: UIView = {
         let button = UIButton(type: .custom)
-        button.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(newGameButtonTapped), for: .touchUpInside)
         let text = NSAttributedString(string: "New Game",
                                       attributes: [.font:UIFont.navigationBarButtonTextFont!,
                                                 .foregroundColor: UIColor.navigationBarButtonTextColor])
@@ -61,7 +66,9 @@ class GameProcessViewController: UIViewController {
     }()
     
     private lazy var scoreCollectionViewController: ScoreCollectionViewController = {
-        let controller = ScoreCollectionViewController.init(collectionViewLayout: ScoresCollectionViewFlowLayout())
+        let layout = ScoresCollectionViewFlowLayout()
+        layout.numberOfCellInCenter = GameModel.shared.currentPlayer
+        let controller = ScoreCollectionViewController.init(collectionViewLayout: layout)
         controller.collectionView.translatesAutoresizingMaskIntoConstraints = false
         NotificationCenter.default.addObserver(self, selector: #selector(centeredCellDidChangeBySwipe), name: .centeredCellDidChange, object: nil)
         return controller
@@ -94,6 +101,7 @@ class GameProcessViewController: UIViewController {
     private lazy var undoAndMiibarStack: UndoAndMinibarStack = {
         let stack = UndoAndMinibarStack()
         stack.undoButton.addTarget(self, action: #selector(undoButtonPressed), for: .touchUpInside)
+        stack.setWhiteColorToCharachter(index: numberOfcellInCenter)
         return stack
     }()
     
@@ -125,13 +133,6 @@ class GameProcessViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: .centeredCellDidChange, object: nil)
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        GameModel.shared.secondsPassed = timer.secondsPassed
-        guard let flowLayout = scoreCollectionViewController.collectionViewLayout as? ScoresCollectionViewFlowLayout
-        else {return}
-        GameModel.shared.currentPlayer = flowLayout.numberOfCellInCenter
-    }
     
     //MARK: - private functions
     private func addSubviews(){
@@ -213,8 +214,12 @@ class GameProcessViewController: UIViewController {
     }
     
     //MARK: - selectors
-    @objc private func backButtonTapped(){
-        navigationController?.popViewController(animated: true)
+    @objc private func newGameButtonTapped(){
+        if navigationController?.viewControllers.count ?? 0 > 1 {
+            navigationController?.popViewController(animated: true)
+        } else {
+            navigationController?.pushViewController(NewGameViewController(), animated: true)
+        }
     }
     
     @objc private func nextCellButtonTapped(){
@@ -271,6 +276,7 @@ class GameProcessViewController: UIViewController {
     
     @objc private func centeredCellDidChangeBySwipe(notification: Notification) {
         undoAndMiibarStack.setWhiteColorToCharachter(index: numberOfcellInCenter)
+        GameModel.shared.currentPlayer = numberOfcellInCenter
     }
 }
 

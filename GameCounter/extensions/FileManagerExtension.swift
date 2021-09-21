@@ -8,6 +8,6 @@
 import Foundation
 
 extension FileManager {
-    static let urlForGameModel = try? FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appendingPathComponent("GameModel").appendingPathExtension(".json")
+    static let urlForGameModel = try? FileManager.default.url(for: .applicationSupportDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appendingPathComponent("GameModel").appendingPathExtension("json")
 }
 

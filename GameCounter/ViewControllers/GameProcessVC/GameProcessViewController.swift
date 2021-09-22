@@ -12,6 +12,14 @@ class GameProcessViewController: UIViewController {
     private var titleLeftInset:NSLayoutConstraint!
     private var titleRightInset: NSLayoutConstraint!
     private var collectionViewHeight: NSLayoutConstraint!
+    private lazy var diceView: DiceView = {
+        let dice = DiceView()
+        dice.frame = UIApplication.shared.keyWindow?.frame ?? .zero
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(diceViewTapped))
+        dice.addGestureRecognizer(tapGesture)
+        return dice
+    }()
+    
     private lazy var timer:TimerStackView = {
         let timer = TimerStackView(seconds: GameModel.shared.secondsPassed)
         if GameModel.shared.secondsPassed != 0 { timer.timerPaused = false }
@@ -69,6 +77,7 @@ class GameProcessViewController: UIViewController {
     private lazy var viewTitle: UIStackView = {
         let title = GameProcessTitleStackView()
         title.translatesAutoresizingMaskIntoConstraints = false
+        title.cubeImageView.addTarget(self, action: #selector(showRandomDice), for: .touchUpInside)
         return title
     }()
     
@@ -112,6 +121,7 @@ class GameProcessViewController: UIViewController {
         addSubviews()
         configureConstraints()
         view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
+        diceView.isHidden = true
     }
 
     override func viewDidLayoutSubviews() {
@@ -136,13 +146,13 @@ class GameProcessViewController: UIViewController {
         view.addSubview(priviousNextButtonsStack)
         view.addSubview(changeScoreButtonsStack)
         view.addSubview(undoAndMiibarStack)
+        UIApplication.shared.keyWindow?.addSubview(diceView)
     }
     
     private func configureConstraints(){
         titleLeftInset = viewTitle.leadingAnchor.constraint(equalTo: view.leadingAnchor)
         titleRightInset = viewTitle.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor)
         collectionViewHeight = scoreCollectionViewController.collectionView.heightAnchor.constraint(equalToConstant:  view.frame.size.height / 2.7)
-        
         
         NSLayoutConstraint.activate([
             titleLeftInset,
@@ -166,7 +176,7 @@ class GameProcessViewController: UIViewController {
             undoAndMiibarStack.topAnchor.constraint(equalTo: changeScoreButtonsStack.bottomAnchor, constant: 20),
             undoAndMiibarStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 40),
             undoAndMiibarStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -40),
-            undoAndMiibarStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            undoAndMiibarStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
         ])
     }
     
@@ -267,6 +277,15 @@ class GameProcessViewController: UIViewController {
     @objc private func centeredCellDidChangeBySwipe(notification: Notification) {
         undoAndMiibarStack.setWhiteColorToCharachter(index: numberOfcellInCenter)
         GameModel.shared.currentPlayer = numberOfcellInCenter
+    }
+    
+    @objc private func showRandomDice() {
+        diceView.setNewRandomDiceToView()
+        diceView.isHidden = false
+    }
+    
+    @objc private func diceViewTapped(){
+        diceView.isHidden = true
     }
 }
 

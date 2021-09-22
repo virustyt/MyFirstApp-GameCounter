@@ -30,6 +30,7 @@
 		8484702826EBA43900C1CBC4 /* UndoAndMinibarStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484702726EBA43900C1CBC4 /* UndoAndMinibarStack.swift */; };
 		848C997126DA554500E8914D /* footerForPlayersNameTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848C997026DA554500E8914D /* footerForPlayersNameTableView.swift */; };
 		849D55B926F0BADB004B6B77 /* NotificationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849D55B826F0BADB004B6B77 /* NotificationExtension.swift */; };
+		84B7807B26FB7D0C00E765F2 /* DiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B7807A26FB7D0C00E765F2 /* DiceView.swift */; };
 		84BD57BE26E2830200CD6E4B /* ScoreCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BD57BD26E2830200CD6E4B /* ScoreCollectionViewCell.swift */; };
 		84BD57C026E284B000CD6E4B /* ScoreCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BD57BF26E284B000CD6E4B /* ScoreCollectionViewController.swift */; };
 		84BD57C426E2979600CD6E4B /* ScoresCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BD57C326E2979600CD6E4B /* ScoresCollectionViewFlowLayout.swift */; };
@@ -67,6 +68,7 @@
 		8484702726EBA43900C1CBC4 /* UndoAndMinibarStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UndoAndMinibarStack.swift; sourceTree = "<group>"; };
 		848C997026DA554500E8914D /* footerForPlayersNameTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = footerForPlayersNameTableView.swift; sourceTree = "<group>"; };
 		849D55B826F0BADB004B6B77 /* NotificationExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationExtension.swift; sourceTree = "<group>"; };
+		84B7807A26FB7D0C00E765F2 /* DiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiceView.swift; sourceTree = "<group>"; };
 		84BD57BD26E2830200CD6E4B /* ScoreCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreCollectionViewCell.swift; sourceTree = "<group>"; };
 		84BD57BF26E284B000CD6E4B /* ScoreCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreCollectionViewController.swift; sourceTree = "<group>"; };
 		84BD57C326E2979600CD6E4B /* ScoresCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				8484702326EB83E500C1CBC4 /* ChangeScoreButtonsStackView.swift */,
 				8484702526EB860F00C1CBC4 /* ChangeScoreButton.swift */,
 				8484702726EBA43900C1CBC4 /* UndoAndMinibarStack.swift */,
+				84B7807A26FB7D0C00E765F2 /* DiceView.swift */,
 			);
 			path = customViews;
 			sourceTree = "<group>";
@@ -333,6 +336,7 @@
 				84BD57BE26E2830200CD6E4B /* ScoreCollectionViewCell.swift in Sources */,
 				848C997126DA554500E8914D /* footerForPlayersNameTableView.swift in Sources */,
 				84548BB926DCCE6900399D04 /* AppColorsUIColorExtension.swift in Sources */,
+				84B7807B26FB7D0C00E765F2 /* DiceView.swift in Sources */,
 				8432A10B26D7D20500845006 /* AppDelegate.swift in Sources */,
 				843547DC26F9FDAA00B00D5E /* GameProcessVCExtension.swift in Sources */,
 				8484702826EBA43900C1CBC4 /* UndoAndMinibarStack.swift in Sources */,

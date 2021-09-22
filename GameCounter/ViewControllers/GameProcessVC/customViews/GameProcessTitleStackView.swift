@@ -21,7 +21,7 @@ class GameProcessTitleStackView: UIStackView {
         return label
     }()
     
-    private lazy var cubeImageView: UIButton = {
+    lazy var cubeImageView: UIButton = {
         let button = UIButton()
         button.setImage(rightImage ?? UIImage(named: "dice4"), for: .normal)
         button.setContentHuggingPriority(.defaultHigh, for: .horizontal)

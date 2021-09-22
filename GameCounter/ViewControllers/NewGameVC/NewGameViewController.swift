@@ -32,41 +32,46 @@ class NewGameViewController: UIViewController {
         button.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
         return button
     }()
-    
+
     
     //MARK: - life cycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = #colorLiteral(red: 0, green: 0, blue: 0, alpha: 1)
         configureNavigationBar()
-        appendSubvies()
+        addSubvies()
         configureConstarits()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         playerTableViewController.tableView.reloadData()
+        showCancelBarButtonItem(gameIsGoingOn: GameModel.shared.gameIsGoingOn)
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+    }
     
     //MARK: - private functions
     private func configureNavigationBar(){
+        guard let navController = navigationController else {return}
         navigationItem.largeTitleDisplayMode = .automatic
-        navigationController?.navigationBar.prefersLargeTitles = true
-        navigationController?.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.white, .font: UIFont(name: "nunito-extrabold", size: 36) ?? UIFont()]
+        navController.navigationBar.prefersLargeTitles = true
+        navController.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.white, .font: UIFont(name: "nunito-extrabold", size: 36) ?? UIFont()]
         
         let mask = UIImage()
-        navigationController?.navigationBar.backIndicatorImage = mask
-        navigationController?.navigationBar.backIndicatorTransitionMaskImage = mask
-        
-        navigationItem.title = "Game Counter"
+        navController.navigationBar.backIndicatorImage = mask
+        navController.navigationBar.backIndicatorTransitionMaskImage = mask
         
         let cancelBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelBarButtonItemHandler))
         navigationItem.leftBarButtonItem = cancelBarButtonItem
-        navigationItem.leftBarButtonItem?.isEnabled = false
-        navigationItem.leftBarButtonItem?.tintColor = UIColor.clear
+        navController.navigationItem.leftBarButtonItem?.setTitleTextAttributes([.font:UIFont.navigationBarButtonTextFont!,
+                                                                                        .foregroundColor: UIColor.navigationBarButtonTextColor], for: .normal)
+        
+        navigationItem.title = "Game Counter"
     }
     
-    private func appendSubvies(){
+    private func addSubvies(){
         view.addSubview(StartGameButton)
         view.addSubview(playerTableViewController.tableView)
         self.addChild(playerTableViewController)
@@ -92,14 +97,36 @@ class NewGameViewController: UIViewController {
         ])
     }
     
+    private func showCancelBarButtonItem(gameIsGoingOn: Bool){
+        if gameIsGoingOn {showCancelBarButtonItem()}
+        else {hideCancelBarButtonItem()}
+    }
+    
+    private func hideCancelBarButtonItem(){
+        navigationItem.leftBarButtonItem?.tintColor = .clear
+        navigationItem.leftBarButtonItem?.isEnabled = false
+    }
+    
+    private func showCancelBarButtonItem(){
+        navigationItem.leftBarButtonItem?.tintColor = UIColor.navigationBarButtonTextColor
+        navigationItem.leftBarButtonItem?.isEnabled = true
+    }
     
     //MARK: - selectors
     @objc private func cancelBarButtonItemHandler () {
-        
+        navigationController?.pushViewController(GameProcessViewController(), animated: true)
     }
     
     @objc private func startButtonTapped(){
+        guard GameModel.shared.allPlayers.count > 0 else {return}
         navigationController?.pushViewController(GameProcessViewController(), animated: true)
+        GameModel.shared.gameIsGoingOn = true
+    }
+    
+    @objc private func changeActivityOfStartButton(){
+        print(GameModel.shared.allPlayers.count)
+        if GameModel.shared.allPlayers.count == 0 { StartGameButton.isEnabled = false }
+        else { StartGameButton.isEnabled = true }
     }
 }
 

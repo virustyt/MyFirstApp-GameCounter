@@ -10,8 +10,8 @@ import Foundation
 struct GameModel: Codable {
     static var shared = GameModel()
     
+    var gameIsGoingOn = false
     var secondsPassed = 0
-    
     var currentPlayer = 0
     
     var playersScores = [String : [Int]]()

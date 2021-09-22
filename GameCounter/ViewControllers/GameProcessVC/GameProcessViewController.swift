@@ -32,23 +32,19 @@ class GameProcessViewController: UIViewController {
         }
     }
 
-    private lazy var newGameBarButtonItem: UIView = {
+    private lazy var newGameBarButtonItem: UIButton = {
         let button = UIButton(type: .custom)
         button.addTarget(self, action: #selector(newGameButtonTapped), for: .touchUpInside)
         let text = NSAttributedString(string: "New Game",
                                       attributes: [.font:UIFont.navigationBarButtonTextFont!,
                                                 .foregroundColor: UIColor.navigationBarButtonTextColor])
         button.setAttributedTitle(text, for: .normal)
-        
-        let view = UIView.init(frame: CGRect(x: 0, y: 0, width: 110, height: 50))
-        button.frame = view.frame
-        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: button.titleLabel?.frame.origin.x ?? 0.0)
-        view.addSubview(button)
-        
-        return view
+        button.sizeToFit()
+
+        return button
     }()
     
-    private var resultsBarButtonItem: UIView = {
+    private var resultsBarButtonItem: UIButton = {
         let button = UIButton(type: .custom)
         button.addTarget(self, action: #selector(resultBarButtonIemTapped), for: .touchUpInside)
         let text = NSAttributedString(string: "Results",
@@ -57,12 +53,8 @@ class GameProcessViewController: UIViewController {
         button.setAttributedTitle(text, for: .normal)
         button.titleLabel?.textAlignment = .right
         button.contentHorizontalAlignment = .right
-        
-        let view = UIView.init(frame: CGRect(x: 0, y: 0, width: 110, height: 50))
-        button.frame = view.frame
-        view.addSubview(button)
-        
-        return view
+
+        return button
     }()
     
     private lazy var scoreCollectionViewController: ScoreCollectionViewController = {
@@ -215,10 +207,10 @@ class GameProcessViewController: UIViewController {
     
     //MARK: - selectors
     @objc private func newGameButtonTapped(){
-        if navigationController?.viewControllers.count ?? 0 > 1 {
-            navigationController?.popViewController(animated: true)
-        } else {
+        if navigationController?.viewControllers.count ?? 0 <= 1 {
             navigationController?.pushViewController(NewGameViewController(), animated: true)
+        } else {
+            navigationController?.popViewController(animated: true)
         }
     }
     
@@ -263,9 +255,7 @@ class GameProcessViewController: UIViewController {
     @objc private func undoButtonPressed(){
         let playerName = GameModel.shared.allPlayers[numberOfcellInCenter]
         guard let playerScore = GameModel.shared.playersScores[playerName] else {return}
-        print(GameModel.shared.playersScores[playerName]!)
         GameModel.shared.playersScores[playerName] = playerScore.count > 1 ? playerScore.dropLast() : playerScore
-        print(GameModel.shared.playersScores[playerName]!)
         scoreCollectionViewController.collectionView.reloadItems(at: [IndexPath(item: numberOfcellInCenter, section: 0)])
         setPriviousCellToCenter()
     }

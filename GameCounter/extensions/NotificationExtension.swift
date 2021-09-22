@@ -9,4 +9,5 @@ import Foundation
 
 extension Notification.Name {
     static let centeredCellDidChange = Notification.Name(rawValue: "centeredCellDidChange")
+    static let countOfRowsInFirstSectionDidChange = Notification.Name(rawValue: "countOfRowsInFirstSectionDidChange")
 }

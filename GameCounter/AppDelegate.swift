@@ -15,13 +15,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             return true
         } else {
             let window = UIWindow.init(frame: UIScreen.main.bounds)
-            window.rootViewController = UINavigationController(rootViewController: NewGameViewController())
             window.makeKeyAndVisible()
             
+            guard let urlForData = FileManager.urlForGameModel else {return true}
             let decoder = JSONDecoder()
-            guard let urlForData = FileManager.urlForGameModel,
-                  let data = try? Data(contentsOf: urlForData),
-                  let lastSavedGameModel = try? decoder.decode(GameModel.self, from: data) else {return true}
+            guard let data = try? Data(contentsOf: urlForData),
+                  let lastSavedGameModel = try? decoder.decode(GameModel.self, from: data)
+            else {
+                window.rootViewController = UINavigationController(rootViewController: NewGameViewController())
+                GameModel.shared.gameIsGoingOn = false
+                return true
+            }
             GameModel.shared = lastSavedGameModel
             return true
         }

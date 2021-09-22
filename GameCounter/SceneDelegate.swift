@@ -29,6 +29,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
               let lastSavedGameModel = try? decoder.decode(GameModel.self, from: data)
         else {
             window?.rootViewController = UINavigationController(rootViewController: NewGameViewController())
+            GameModel.shared.gameIsGoingOn = false
             return
         }
         GameModel.shared = lastSavedGameModel

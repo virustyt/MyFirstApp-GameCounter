@@ -146,8 +146,6 @@
 			children = (
 				84FE9C2726D8D22300419838 /* fonts */,
 				84548BB526DCCCA600399D04 /* TextStyles.swift */,
-				84548BB826DCCE6900399D04 /* AppColorsUIColorExtension.swift */,
-				84548BBA26DCCEED00399D04 /* AppFontsUIFontExtension.swift */,
 			);
 			path = graficalDesign;
 			sourceTree = "<group>";
@@ -216,6 +214,8 @@
 		849D55B726F0BAB0004B6B77 /* extensions */ = {
 			isa = PBXGroup;
 			children = (
+				84548BB826DCCE6900399D04 /* AppColorsUIColorExtension.swift */,
+				84548BBA26DCCEED00399D04 /* AppFontsUIFontExtension.swift */,
 				849D55B826F0BADB004B6B77 /* NotificationExtension.swift */,
 				84F05A3F26F7A5F400EAA2D5 /* FileManagerExtension.swift */,
 				843547DB26F9FDAA00B00D5E /* GameProcessVCExtension.swift */,

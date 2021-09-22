@@ -21,11 +21,12 @@ class GameProcessTitleStackView: UIStackView {
         return label
     }()
     
-    private lazy var cubeImageView: UIImageView = {
-        let image = UIImageView()
-        image.image = rightImage ?? UIImage(named: "dice")
-        image.setContentHuggingPriority(.defaultHigh, for: .horizontal)
-        return image
+    private lazy var cubeImageView: UIButton = {
+        let button = UIButton()
+        button.setImage(rightImage ?? UIImage(named: "dice4"), for: .normal)
+        button.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        button.sizeToFit()
+        return button
     }()
     
     override init(frame: CGRect) {
@@ -35,6 +36,9 @@ class GameProcessTitleStackView: UIStackView {
         alignment = .center
         distribution = .fill
         spacing = 5
+        
+        cubeImageView.widthAnchor.constraint(equalTo: cubeImageView.heightAnchor).isActive = true
+        cubeImageView.heightAnchor.constraint(equalToConstant: titleLabel.font.capHeight).isActive = true
     }
 
     required init(coder: NSCoder) {

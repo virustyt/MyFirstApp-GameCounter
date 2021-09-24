@@ -12,6 +12,7 @@ class GameProcessViewController: UIViewController {
     private var titleLeftInset:NSLayoutConstraint!
     private var titleRightInset: NSLayoutConstraint!
     private var collectionViewHeight: NSLayoutConstraint!
+    
     private lazy var diceView: DiceView = {
         let dice = DiceView()
         dice.frame = UIApplication.shared.keyWindow?.frame ?? .zero
@@ -42,26 +43,23 @@ class GameProcessViewController: UIViewController {
 
     private lazy var newGameBarButtonItem: UIButton = {
         let button = UIButton(type: .custom)
-        button.addTarget(self, action: #selector(newGameButtonTapped), for: .touchUpInside)
+        button.addTarget(self, action: #selector(newGameBarButtonItemTapped), for: .touchUpInside)
         let text = NSAttributedString(string: "New Game",
                                       attributes: [.font:UIFont.navigationBarButtonTextFont!,
                                                 .foregroundColor: UIColor.navigationBarButtonTextColor])
         button.setAttributedTitle(text, for: .normal)
         button.sizeToFit()
-
         return button
     }()
     
-    private var resultsBarButtonItem: UIButton = {
+    private lazy var resultsBarButtonItem: UIButton = {
         let button = UIButton(type: .custom)
         button.addTarget(self, action: #selector(resultBarButtonIemTapped), for: .touchUpInside)
         let text = NSAttributedString(string: "Results",
                                       attributes: [.font:UIFont.navigationBarButtonTextFont!,
                                                 .foregroundColor: UIColor.navigationBarButtonTextColor])
         button.setAttributedTitle(text, for: .normal)
-        button.titleLabel?.textAlignment = .right
-        button.contentHorizontalAlignment = .right
-
+        button.sizeToFit()
         return button
     }()
     
@@ -75,7 +73,7 @@ class GameProcessViewController: UIViewController {
     }()
     
     private lazy var viewTitle: UIStackView = {
-        let title = GameProcessTitleStackView()
+        let title = TitleStackView()
         title.translatesAutoresizingMaskIntoConstraints = false
         title.cubeImageView.addTarget(self, action: #selector(showRandomDice), for: .touchUpInside)
         return title
@@ -176,19 +174,22 @@ class GameProcessViewController: UIViewController {
             undoAndMiibarStack.topAnchor.constraint(equalTo: changeScoreButtonsStack.bottomAnchor, constant: 20),
             undoAndMiibarStack.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor,constant: 40),
             undoAndMiibarStack.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -40),
-            undoAndMiibarStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            undoAndMiibarStack.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
     }
     
     private func configureNavigationBar(){
-        navigationItem.largeTitleDisplayMode = .never
-        navigationController?.navigationBar.barTintColor = .black
-        navigationController?.navigationBar.isTranslucent = false
+//        navigationItem.largeTitleDisplayMode = .never
+        guard let navController = navigationController else {return}
+//        navigationItem.largeTitleDisplayMode = .automatic
+        navController.navigationBar.prefersLargeTitles = false
+        navController.navigationBar.barTintColor = .black
+        navController.navigationBar.isTranslucent = false
         
         navigationItem.leftItemsSupplementBackButton = false
         navigationItem.leftBarButtonItem = UIBarButtonItem.init(customView: newGameBarButtonItem)
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem.init(customView: resultsBarButtonItem)
+
+        navigationItem.rightBarButtonItem = UIBarButtonItem(customView: resultsBarButtonItem)
     }
     
     
@@ -216,14 +217,6 @@ class GameProcessViewController: UIViewController {
     }
     
     //MARK: - selectors
-    @objc private func newGameButtonTapped(){
-        if navigationController?.viewControllers.count ?? 0 <= 1 {
-            navigationController?.pushViewController(NewGameViewController(), animated: true)
-        } else {
-            navigationController?.popViewController(animated: true)
-        }
-    }
-    
     @objc private func nextCellButtonTapped(){
         setNextCellToCenter()
     }
@@ -270,8 +263,19 @@ class GameProcessViewController: UIViewController {
         setPriviousCellToCenter()
     }
     
+    @objc private func newGameBarButtonItemTapped(){
+        guard let navController = navigationController else {return}
+        if navController.viewControllers.count == 1 {
+            navController.pushViewController(NewGameViewController(), animated: true)
+            navController.navigationBar.prefersLargeTitles = true
+        } else {
+            navController.popViewController(animated: true)
+            navController.navigationBar.prefersLargeTitles = true
+        }
+    }
+    
     @objc private func resultBarButtonIemTapped(){
-        
+        navigationController?.pushViewController(ResultsViewController(), animated: true)
     }
     
     @objc private func centeredCellDidChangeBySwipe(notification: Notification) {

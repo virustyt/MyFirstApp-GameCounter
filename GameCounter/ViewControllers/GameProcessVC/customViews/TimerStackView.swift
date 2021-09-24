@@ -32,9 +32,7 @@ class TimerStackView: UIStackView {
     private lazy var timeLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
-        let paragraphStyle = NSMutableParagraphStyle()
         timerNumbersAttributes = [.font : timerFont,
-                                  .paragraphStyle : paragraphStyle ,
                                   .foregroundColor : UIColor.timerColor]
         label.attributedText = stringForTimer(seconds: secondsPassed, atributes: timerNumbersAttributes)
         return label
@@ -82,8 +80,6 @@ class TimerStackView: UIStackView {
     
     @objc private func timerButtonPressed(){
         timerPaused.toggle()
-//        if timerPaused == true { pauseTimer() }
-//        else { resumeTimer() }
     }
 
     private func stringForTimer(seconds: Int, atributes: [NSAttributedString.Key: Any]) -> NSAttributedString {

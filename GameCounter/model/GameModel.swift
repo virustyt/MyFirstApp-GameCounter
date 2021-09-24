@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct GameModel: Codable {
+class GameModel: Codable {
     static var shared = GameModel()
     
     var gameIsGoingOn = false

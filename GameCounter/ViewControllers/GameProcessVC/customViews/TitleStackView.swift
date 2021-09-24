@@ -7,7 +7,7 @@
 
 import UIKit
 
-class GameProcessTitleStackView: UIStackView {
+class TitleStackView: UIStackView {
 
     var titleText: String?
     var rightImage: UIImage?

@@ -27,9 +27,9 @@ class PlayersTableViewController: UITableViewController {
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell2")
         
         tableView.layer.cornerRadius = 15
-        tableView.backgroundColor = UIColor(red: 59/255, green: 59/255, blue: 59/255, alpha: 1)
+        tableView.backgroundColor = UIColor.cellBackgroundColor
         tableView.isEditing = true
-        tableView.separatorColor = UIColor(red: 0.922, green: 0.922, blue: 0.961, alpha: 0.6)
+        tableView.separatorColor = UIColor.tableViewSeparatorColor
     }
 
     // MARK: - Table view data source
@@ -63,7 +63,7 @@ class PlayersTableViewController: UITableViewController {
         header.textLabel?.text = "Players"
         header.textLabel?.font = UIFont(name: "nunito-extrabold", size: 16)
         header.textLabel?.textColor = UIColor(red: 0.922, green: 0.922, blue: 0.961, alpha: 0.6)
-        header.contentView.backgroundColor = UIColor(red: 59/255, green: 59/255, blue: 59/255, alpha: 1)
+        header.contentView.backgroundColor = UIColor.cellBackgroundColor
         
         return header
     }

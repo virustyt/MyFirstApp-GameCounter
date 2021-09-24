@@ -17,7 +17,6 @@ class DiceView: UIView {
     private var diceImage: UIImageView = {
         let dice = UIImageView()
         let randomDiceNumber = arc4random() % 6 + 1
-        print(randomDiceNumber)
         dice.image = UIImage(named: "dice\(randomDiceNumber)")
         dice.sizeToFit()
         dice.translatesAutoresizingMaskIntoConstraints = false

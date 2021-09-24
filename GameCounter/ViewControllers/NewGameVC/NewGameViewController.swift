@@ -52,23 +52,25 @@ class NewGameViewController: UIViewController {
         super.viewWillDisappear(animated)
     }
     
+    
     //MARK: - private functions
     private func configureNavigationBar(){
         guard let navController = navigationController else {return}
         navigationItem.largeTitleDisplayMode = .automatic
         navController.navigationBar.prefersLargeTitles = true
-        navController.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.white, .font: UIFont(name: "nunito-extrabold", size: 36) ?? UIFont()]
+        navController.navigationBar.largeTitleTextAttributes = [.foregroundColor: UIColor.white,
+                                                                .font: UIFont(name: "nunito-extrabold", size: 36) ?? UIFont()]
+        navigationItem.title = "Game Counter"
         
         let mask = UIImage()
         navController.navigationBar.backIndicatorImage = mask
         navController.navigationBar.backIndicatorTransitionMaskImage = mask
         
-        let cancelBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelBarButtonItemHandler))
+        let cancelBarButtonItem = UIBarButtonItem(title: "Cancel", style: .plain, target: self, action: #selector(cancelBarButtonItemHandler))
         navigationItem.leftBarButtonItem = cancelBarButtonItem
-        navController.navigationItem.leftBarButtonItem?.setTitleTextAttributes([.font:UIFont.navigationBarButtonTextFont!,
-                                                                                        .foregroundColor: UIColor.navigationBarButtonTextColor], for: .normal)
-        
-        navigationItem.title = "Game Counter"
+        navigationItem.leftBarButtonItem?.setTitleTextAttributes([.font:UIFont.navigationBarButtonTextFont ?? UIFont(),
+                                                                                .foregroundColor: UIColor.navigationBarButtonTextColor],
+                                                                               for: .normal)
     }
     
     private func addSubvies(){
@@ -114,7 +116,13 @@ class NewGameViewController: UIViewController {
     
     //MARK: - selectors
     @objc private func cancelBarButtonItemHandler () {
-        navigationController?.pushViewController(GameProcessViewController(), animated: true)
+        guard let navController = navigationController else {return}
+        if navController.viewControllers.count == 1 {
+            navController.pushViewController(GameProcessViewController(), animated: true)
+        } else {
+            navController.popViewController(animated: true)
+            navController.navigationBar.prefersLargeTitles = false
+        }
     }
     
     @objc private func startButtonTapped(){

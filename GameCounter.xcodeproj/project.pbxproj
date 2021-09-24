@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8410F54B26FC944A00532EFA /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8410F54A26FC944A00532EFA /* ResultsViewController.swift */; };
+		84243F2C26FDEFFC00C938D4 /* ScoresTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84243F2B26FDEFFC00C938D4 /* ScoresTableViewController.swift */; };
+		84243F2E26FDF4D600C938D4 /* PlayersDataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84243F2D26FDF4D600C938D4 /* PlayersDataCell.swift */; };
 		8430F1EA26E7C85B003D4097 /* nunito-bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8430F1E926E7C85B003D4097 /* nunito-bold.ttf */; };
 		8432A10B26D7D20500845006 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8432A10A26D7D20500845006 /* AppDelegate.swift */; };
 		8432A10D26D7D20500845006 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8432A10C26D7D20500845006 /* SceneDelegate.swift */; };
@@ -22,7 +25,7 @@
 		84548BB926DCCE6900399D04 /* AppColorsUIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84548BB826DCCE6900399D04 /* AppColorsUIColorExtension.swift */; };
 		84548BBB26DCCEED00399D04 /* AppFontsUIFontExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84548BBA26DCCEED00399D04 /* AppFontsUIFontExtension.swift */; };
 		84548BBF26DCEC1F00399D04 /* GameProcessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84548BBE26DCEC1F00399D04 /* GameProcessViewController.swift */; };
-		84548BC226DCF04F00399D04 /* GameProcessTitleStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84548BC126DCF04F00399D04 /* GameProcessTitleStackView.swift */; };
+		84548BC226DCF04F00399D04 /* TitleStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84548BC126DCF04F00399D04 /* TitleStackView.swift */; };
 		846A144C26DB9A4D0069F766 /* UniversalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846A144B26DB9A4D0069F766 /* UniversalView.swift */; };
 		846A144E26DBD7CB0069F766 /* AddPlayerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846A144D26DBD7CB0069F766 /* AddPlayerTextField.swift */; };
 		8484702426EB83E500C1CBC4 /* ChangeScoreButtonsStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484702326EB83E500C1CBC4 /* ChangeScoreButtonsStackView.swift */; };
@@ -35,6 +38,7 @@
 		84BD57C026E284B000CD6E4B /* ScoreCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BD57BF26E284B000CD6E4B /* ScoreCollectionViewController.swift */; };
 		84BD57C426E2979600CD6E4B /* ScoresCollectionViewFlowLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84BD57C326E2979600CD6E4B /* ScoresCollectionViewFlowLayout.swift */; };
 		84F05A4026F7A5F400EAA2D5 /* FileManagerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84F05A3F26F7A5F400EAA2D5 /* FileManagerExtension.swift */; };
+		84FB0EA926FCDAFB009BA2DE /* FirstThreePlacesStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FB0EA826FCDAFB009BA2DE /* FirstThreePlacesStackView.swift */; };
 		84FE9C2B26D8D4B600419838 /* nunito-semibold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84FE9C2926D8D4B600419838 /* nunito-semibold.ttf */; };
 		84FE9C2C26D8D4B600419838 /* nunito-extrabold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84FE9C2A26D8D4B600419838 /* nunito-extrabold.ttf */; };
 		84FE9C2E26D8EA4D00419838 /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84FE9C2D26D8EA4D00419838 /* GameModel.swift */; };
@@ -43,6 +47,9 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8410F54A26FC944A00532EFA /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
+		84243F2B26FDEFFC00C938D4 /* ScoresTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresTableViewController.swift; sourceTree = "<group>"; };
+		84243F2D26FDF4D600C938D4 /* PlayersDataCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersDataCell.swift; sourceTree = "<group>"; };
 		8430F1E926E7C85B003D4097 /* nunito-bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "nunito-bold.ttf"; sourceTree = "<group>"; };
 		8432A10726D7D20500845006 /* GameCounter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameCounter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8432A10A26D7D20500845006 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -60,7 +67,7 @@
 		84548BB826DCCE6900399D04 /* AppColorsUIColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppColorsUIColorExtension.swift; sourceTree = "<group>"; };
 		84548BBA26DCCEED00399D04 /* AppFontsUIFontExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppFontsUIFontExtension.swift; sourceTree = "<group>"; };
 		84548BBE26DCEC1F00399D04 /* GameProcessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameProcessViewController.swift; sourceTree = "<group>"; };
-		84548BC126DCF04F00399D04 /* GameProcessTitleStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameProcessTitleStackView.swift; sourceTree = "<group>"; };
+		84548BC126DCF04F00399D04 /* TitleStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleStackView.swift; sourceTree = "<group>"; };
 		846A144B26DB9A4D0069F766 /* UniversalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UniversalView.swift; sourceTree = "<group>"; };
 		846A144D26DBD7CB0069F766 /* AddPlayerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddPlayerTextField.swift; sourceTree = "<group>"; };
 		8484702326EB83E500C1CBC4 /* ChangeScoreButtonsStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeScoreButtonsStackView.swift; sourceTree = "<group>"; };
@@ -73,6 +80,7 @@
 		84BD57BF26E284B000CD6E4B /* ScoreCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreCollectionViewController.swift; sourceTree = "<group>"; };
 		84BD57C326E2979600CD6E4B /* ScoresCollectionViewFlowLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresCollectionViewFlowLayout.swift; sourceTree = "<group>"; };
 		84F05A3F26F7A5F400EAA2D5 /* FileManagerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerExtension.swift; sourceTree = "<group>"; };
+		84FB0EA826FCDAFB009BA2DE /* FirstThreePlacesStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstThreePlacesStackView.swift; sourceTree = "<group>"; };
 		84FE9C2926D8D4B600419838 /* nunito-semibold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "nunito-semibold.ttf"; sourceTree = "<group>"; };
 		84FE9C2A26D8D4B600419838 /* nunito-extrabold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "nunito-extrabold.ttf"; sourceTree = "<group>"; };
 		84FE9C2D26D8EA4D00419838 /* GameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
@@ -91,6 +99,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8410F54C26FC945200532EFA /* ResultsVC */ = {
+			isa = PBXGroup;
+			children = (
+				8410F54A26FC944A00532EFA /* ResultsViewController.swift */,
+				84243F2B26FDEFFC00C938D4 /* ScoresTableViewController.swift */,
+				84FB0EAA26FCDAFF009BA2DE /* customViews */,
+				84243F2F26FDF4DB00C938D4 /* tableViewSupplement */,
+			);
+			path = ResultsVC;
+			sourceTree = "<group>";
+		};
+		84243F2F26FDF4DB00C938D4 /* tableViewSupplement */ = {
+			isa = PBXGroup;
+			children = (
+				84243F2D26FDF4D600C938D4 /* PlayersDataCell.swift */,
+			);
+			path = tableViewSupplement;
+			sourceTree = "<group>";
+		};
 		8432A0FE26D7D20500845006 = {
 			isa = PBXGroup;
 			children = (
@@ -130,6 +157,7 @@
 				848C997226DA559B00E8914D /* NewGameVC */,
 				848C997326DA55B000E8914D /* AddPlayerVC */,
 				84548BC026DCEC2400399D04 /* GameProcessVC */,
+				8410F54C26FC945200532EFA /* ResultsVC */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -166,7 +194,7 @@
 		84548BC326DCF05C00399D04 /* customViews */ = {
 			isa = PBXGroup;
 			children = (
-				84548BC126DCF04F00399D04 /* GameProcessTitleStackView.swift */,
+				84548BC126DCF04F00399D04 /* TitleStackView.swift */,
 				844D143F26DEB6A40021BEDD /* TimerStackView.swift */,
 				84436EA326E89E25007A5F2C /* ScoreNavigationStackView.swift */,
 				8484702326EB83E500C1CBC4 /* ChangeScoreButtonsStackView.swift */,
@@ -224,6 +252,14 @@
 				843547DB26F9FDAA00B00D5E /* GameProcessVCExtension.swift */,
 			);
 			path = extensions;
+			sourceTree = "<group>";
+		};
+		84FB0EAA26FCDAFF009BA2DE /* customViews */ = {
+			isa = PBXGroup;
+			children = (
+				84FB0EA826FCDAFB009BA2DE /* FirstThreePlacesStackView.swift */,
+			);
+			path = customViews;
 			sourceTree = "<group>";
 		};
 		84FE9C2726D8D22300419838 /* fonts */ = {
@@ -318,8 +354,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				84548BBF26DCEC1F00399D04 /* GameProcessViewController.swift in Sources */,
+				84FB0EA926FCDAFB009BA2DE /* FirstThreePlacesStackView.swift in Sources */,
 				849D55B926F0BADB004B6B77 /* NotificationExtension.swift in Sources */,
 				844D144026DEB6A40021BEDD /* TimerStackView.swift in Sources */,
+				8410F54B26FC944A00532EFA /* ResultsViewController.swift in Sources */,
 				8484702626EB860F00C1CBC4 /* ChangeScoreButton.swift in Sources */,
 				84FE9C2E26D8EA4D00419838 /* GameModel.swift in Sources */,
 				84548BB626DCCCA600399D04 /* TextStyles.swift in Sources */,
@@ -329,15 +367,17 @@
 				846A144E26DBD7CB0069F766 /* AddPlayerTextField.swift in Sources */,
 				84BD57C426E2979600CD6E4B /* ScoresCollectionViewFlowLayout.swift in Sources */,
 				8432A11F26D7DE9400845006 /* PlayersTableViewController.swift in Sources */,
+				84243F2C26FDEFFC00C938D4 /* ScoresTableViewController.swift in Sources */,
 				8484702426EB83E500C1CBC4 /* ChangeScoreButtonsStackView.swift in Sources */,
 				8432A10F26D7D20500845006 /* NewGameViewController.swift in Sources */,
-				84548BC226DCF04F00399D04 /* GameProcessTitleStackView.swift in Sources */,
+				84548BC226DCF04F00399D04 /* TitleStackView.swift in Sources */,
 				84F05A4026F7A5F400EAA2D5 /* FileManagerExtension.swift in Sources */,
 				84BD57BE26E2830200CD6E4B /* ScoreCollectionViewCell.swift in Sources */,
 				848C997126DA554500E8914D /* footerForPlayersNameTableView.swift in Sources */,
 				84548BB926DCCE6900399D04 /* AppColorsUIColorExtension.swift in Sources */,
 				84B7807B26FB7D0C00E765F2 /* DiceView.swift in Sources */,
 				8432A10B26D7D20500845006 /* AppDelegate.swift in Sources */,
+				84243F2E26FDF4D600C938D4 /* PlayersDataCell.swift in Sources */,
 				843547DC26F9FDAA00B00D5E /* GameProcessVCExtension.swift in Sources */,
 				8484702826EBA43900C1CBC4 /* UndoAndMinibarStack.swift in Sources */,
 				8432A10D26D7D20500845006 /* SceneDelegate.swift in Sources */,

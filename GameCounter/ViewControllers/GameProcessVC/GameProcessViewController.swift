@@ -179,9 +179,7 @@ class GameProcessViewController: UIViewController {
     }
     
     private func configureNavigationBar(){
-//        navigationItem.largeTitleDisplayMode = .never
         guard let navController = navigationController else {return}
-//        navigationItem.largeTitleDisplayMode = .automatic
         navController.navigationBar.prefersLargeTitles = false
         navController.navigationBar.barTintColor = .black
         navController.navigationBar.isTranslucent = false
@@ -215,6 +213,7 @@ class GameProcessViewController: UIViewController {
             numberOfcellInCenter -= 1
         }
     }
+    
     
     //MARK: - selectors
     @objc private func nextCellButtonTapped(){

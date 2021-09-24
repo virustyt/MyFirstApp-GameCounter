@@ -10,6 +10,7 @@
 		8410F54B26FC944A00532EFA /* ResultsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8410F54A26FC944A00532EFA /* ResultsViewController.swift */; };
 		84243F2C26FDEFFC00C938D4 /* ScoresTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84243F2B26FDEFFC00C938D4 /* ScoresTableViewController.swift */; };
 		84243F2E26FDF4D600C938D4 /* PlayersDataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84243F2D26FDF4D600C938D4 /* PlayersDataCell.swift */; };
+		84243F3326FE48BD00C938D4 /* RootNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84243F3226FE48BD00C938D4 /* RootNavigationController.swift */; };
 		8430F1EA26E7C85B003D4097 /* nunito-bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8430F1E926E7C85B003D4097 /* nunito-bold.ttf */; };
 		8432A10B26D7D20500845006 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8432A10A26D7D20500845006 /* AppDelegate.swift */; };
 		8432A10D26D7D20500845006 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8432A10C26D7D20500845006 /* SceneDelegate.swift */; };
@@ -50,6 +51,7 @@
 		8410F54A26FC944A00532EFA /* ResultsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultsViewController.swift; sourceTree = "<group>"; };
 		84243F2B26FDEFFC00C938D4 /* ScoresTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoresTableViewController.swift; sourceTree = "<group>"; };
 		84243F2D26FDF4D600C938D4 /* PlayersDataCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayersDataCell.swift; sourceTree = "<group>"; };
+		84243F3226FE48BD00C938D4 /* RootNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootNavigationController.swift; sourceTree = "<group>"; };
 		8430F1E926E7C85B003D4097 /* nunito-bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "nunito-bold.ttf"; sourceTree = "<group>"; };
 		8432A10726D7D20500845006 /* GameCounter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameCounter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8432A10A26D7D20500845006 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -118,6 +120,14 @@
 			path = tableViewSupplement;
 			sourceTree = "<group>";
 		};
+		84243F3426FE491A00C938D4 /* rootNavigationVC */ = {
+			isa = PBXGroup;
+			children = (
+				84243F3226FE48BD00C938D4 /* RootNavigationController.swift */,
+			);
+			path = rootNavigationVC;
+			sourceTree = "<group>";
+		};
 		8432A0FE26D7D20500845006 = {
 			isa = PBXGroup;
 			children = (
@@ -137,8 +147,9 @@
 		8432A10926D7D20500845006 /* GameCounter */ = {
 			isa = PBXGroup;
 			children = (
-				849D55B726F0BAB0004B6B77 /* extensions */,
 				84548BB726DCCCB800399D04 /* graficalDesign */,
+				849D55B726F0BAB0004B6B77 /* extensions */,
+				84FE9C2F26D8EA6700419838 /* model */,
 				8432A12026D7DE9A00845006 /* ViewControllers */,
 				8432A10A26D7D20500845006 /* AppDelegate.swift */,
 				8432A10C26D7D20500845006 /* SceneDelegate.swift */,
@@ -146,7 +157,6 @@
 				8432A11526D7D20B00845006 /* LaunchScreen.storyboard */,
 				8432A11826D7D20B00845006 /* Info.plist */,
 				8432A12126D7E61000845006 /* Storyboard.storyboard */,
-				84FE9C2F26D8EA6700419838 /* model */,
 			);
 			path = GameCounter;
 			sourceTree = "<group>";
@@ -154,6 +164,7 @@
 		8432A12026D7DE9A00845006 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				84243F3426FE491A00C938D4 /* rootNavigationVC */,
 				848C997226DA559B00E8914D /* NewGameVC */,
 				848C997326DA55B000E8914D /* AddPlayerVC */,
 				84548BC026DCEC2400399D04 /* GameProcessVC */,
@@ -370,6 +381,7 @@
 				84243F2C26FDEFFC00C938D4 /* ScoresTableViewController.swift in Sources */,
 				8484702426EB83E500C1CBC4 /* ChangeScoreButtonsStackView.swift in Sources */,
 				8432A10F26D7D20500845006 /* NewGameViewController.swift in Sources */,
+				84243F3326FE48BD00C938D4 /* RootNavigationController.swift in Sources */,
 				84548BC226DCF04F00399D04 /* TitleStackView.swift in Sources */,
 				84F05A4026F7A5F400EAA2D5 /* FileManagerExtension.swift in Sources */,
 				84BD57BE26E2830200CD6E4B /* ScoreCollectionViewCell.swift in Sources */,

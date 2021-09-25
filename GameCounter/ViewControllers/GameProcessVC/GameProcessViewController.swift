@@ -128,6 +128,14 @@ class GameProcessViewController: UIViewController {
         titleRightInset.constant = -(view.safeAreaLayoutGuide.layoutFrame.width - resultsBarButtonItem.convert(self.resultsBarButtonItem.frame, to: nil).maxX)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        scoreCollectionViewController.collectionView.reloadData()
+        guard let layout = scoreCollectionViewController.collectionViewLayout as? ScoresCollectionViewFlowLayout
+        else {return}
+        layout.numberOfCellInCenter = GameModel.shared.currentPlayer
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self, name: .centeredCellDidChange, object: nil)

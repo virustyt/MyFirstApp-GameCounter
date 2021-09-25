@@ -32,6 +32,7 @@
 		8484702426EB83E500C1CBC4 /* ChangeScoreButtonsStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484702326EB83E500C1CBC4 /* ChangeScoreButtonsStackView.swift */; };
 		8484702626EB860F00C1CBC4 /* ChangeScoreButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484702526EB860F00C1CBC4 /* ChangeScoreButton.swift */; };
 		8484702826EBA43900C1CBC4 /* UndoAndMinibarStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8484702726EBA43900C1CBC4 /* UndoAndMinibarStack.swift */; };
+		848A734B26FF543E00622354 /* ShowTime in Frameworks */ = {isa = PBXBuildFile; productRef = 848A734A26FF543E00622354 /* ShowTime */; };
 		848C997126DA554500E8914D /* footerForPlayersNameTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 848C997026DA554500E8914D /* footerForPlayersNameTableView.swift */; };
 		849D55B926F0BADB004B6B77 /* NotificationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849D55B826F0BADB004B6B77 /* NotificationExtension.swift */; };
 		84B7807B26FB7D0C00E765F2 /* DiceView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B7807A26FB7D0C00E765F2 /* DiceView.swift */; };
@@ -95,6 +96,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				848A734B26FF543E00622354 /* ShowTime in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -133,6 +135,7 @@
 			children = (
 				8432A10926D7D20500845006 /* GameCounter */,
 				8432A10826D7D20500845006 /* Products */,
+				848A734926FF543E00622354 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -224,6 +227,13 @@
 			path = customViews;
 			sourceTree = "<group>";
 		};
+		848A734926FF543E00622354 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		848C997226DA559B00E8914D /* NewGameVC */ = {
 			isa = PBXGroup;
 			children = (
@@ -308,6 +318,7 @@
 			);
 			name = GameCounter;
 			packageProductDependencies = (
+				848A734A26FF543E00622354 /* ShowTime */,
 			);
 			productName = GameCounter;
 			productReference = 8432A10726D7D20500845006 /* GameCounter.app */;
@@ -607,6 +618,14 @@
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		848A734A26FF543E00622354 /* ShowTime */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 848A734626FF356E00622354 /* XCRemoteSwiftPackageReference "ShowTime" */;
+			productName = ShowTime;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8432A0FF26D7D20500845006 /* Project object */;
 }

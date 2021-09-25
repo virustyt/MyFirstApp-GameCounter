@@ -47,7 +47,6 @@ class NewGameViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         playerTableViewController.tableView.reloadData()
         changeActivityOfStartGameAndCancelButton()
-        showCancelBarButtonItem(gameIsGoingOn: GameModel.shared.gameIsGoingOn)
     }
     
     deinit {
@@ -101,10 +100,6 @@ class NewGameViewController: UIViewController {
         ])
     }
     
-    private func showCancelBarButtonItem(gameIsGoingOn: Bool){
-        
-    }
-    
     private func hideCancelBarButtonItem(){
         navigationItem.leftBarButtonItem?.tintColor = .clear
         navigationItem.leftBarButtonItem?.isEnabled = false
@@ -139,6 +134,8 @@ class NewGameViewController: UIViewController {
         GameModel.shared.gameIsGoingOn = true
         let newPlayersScores = GameModel.shared.allPlayers.reduce(into: [String:[Int]](), {$0[$1] = [0]} )
         GameModel.shared.playersScores = newPlayersScores
+        GameModel.shared.currentPlayer = 0
+        GameModel.shared.secondsPassed = 0
     }
     
     @objc private func changeActivityOfStartGameAndCancelButton(){
@@ -146,7 +143,7 @@ class NewGameViewController: UIViewController {
             startGameButton.isEnabled = false
             hideCancelBarButtonItem()
         }
-        else  if !GameModel.shared.gameIsGoingOn {
+        else  if GameModel.shared.gameIsGoingOn == false{
             startGameButton.isEnabled = true
             hideCancelBarButtonItem()
         } else {

@@ -138,6 +138,7 @@ class PlayersTableViewController: UITableViewController {
         GameModel.shared.allPlayers.remove(at: indexOfPlayerName)
         GameModel.shared.playersScores[playerName] = nil
         tableView.deleteRows(at: [IndexPath(item: indexOfPlayerName, section: 0)], with: .automatic)
+        NotificationCenter.default.post(name: .playersTableViewRowWasDeleted, object: nil)
     }
     
     @objc private func addButtonTapped(){

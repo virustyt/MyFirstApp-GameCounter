@@ -53,7 +53,9 @@ class FirstThreePlacesStackView: UIStackView {
             playersTotalScores[key] = values.reduce(0, {$0+$1} )
         }
         let playersSortedByScore = Array(playersTotalScores.keys).sorted( by: { playersTotalScores[$0]! == playersTotalScores[$1]! ? $0 < $1 : playersTotalScores[$0]! > playersTotalScores[$1]! } )
-        for playersIndex in 0...2 {
+        let numberOfPlayers = playersSortedByScore.count
+        let countOfTopPlayersToDisplay = numberOfPlayers < 3 ? numberOfPlayers : 3
+        for playersIndex in 0...countOfTopPlayersToDisplay - 1 {
             let name = playersSortedByScore[playersIndex]
             guard let playersPlace =  PlayersPlace(rawValue: playersIndex) else { fatalError("Enum PlayersPLace does not contain such index for its raw value.") }
             setPlayersScore(score: playersTotalScores[name]!, for: name, with: playersPlace)

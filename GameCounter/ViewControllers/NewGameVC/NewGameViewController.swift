@@ -15,7 +15,7 @@ class NewGameViewController: UIViewController {
         return tableController
     }()
     
-    private lazy var StartGameButton: UIButton = {
+    private lazy var startGameButton: UIButton = {
         let button = UIButton()
         button.setTitle("Start Game", for: .normal)
         button.titleLabel?.font = UIFont(name: "nunito-extrabold", size: 24)
@@ -41,16 +41,17 @@ class NewGameViewController: UIViewController {
         configureNavigationBar()
         addSubvies()
         configureConstarits()
-        UIApplication.shared.statusBarStyle = .lightContent
+        addObservers()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         playerTableViewController.tableView.reloadData()
+        changeActivityOfStartGameAndCancelButton()
         showCancelBarButtonItem(gameIsGoingOn: GameModel.shared.gameIsGoingOn)
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
+    deinit {
+        removeOnservers()
     }
     
     
@@ -75,7 +76,7 @@ class NewGameViewController: UIViewController {
     }
     
     private func addSubvies(){
-        view.addSubview(StartGameButton)
+        view.addSubview(startGameButton)
         view.addSubview(playerTableViewController.tableView)
         self.addChild(playerTableViewController)
     }
@@ -91,18 +92,17 @@ class NewGameViewController: UIViewController {
             playerTableViewController.tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
             constraintHeightOfTableView,
             
-            StartGameButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -65),
-            StartGameButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            StartGameButton.widthAnchor.constraint(equalToConstant: 335),
-            StartGameButton.heightAnchor.constraint(equalToConstant: 65),
+            startGameButton.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -65),
+            startGameButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            startGameButton.widthAnchor.constraint(equalToConstant: 335),
+            startGameButton.heightAnchor.constraint(equalToConstant: 65),
 
-            StartGameButton.topAnchor.constraint(greaterThanOrEqualTo: playerTableViewController.tableView.bottomAnchor, constant: 20)
+            startGameButton.topAnchor.constraint(greaterThanOrEqualTo: playerTableViewController.tableView.bottomAnchor, constant: 20)
         ])
     }
     
     private func showCancelBarButtonItem(gameIsGoingOn: Bool){
-        if gameIsGoingOn {showCancelBarButtonItem()}
-        else {hideCancelBarButtonItem()}
+        
     }
     
     private func hideCancelBarButtonItem(){
@@ -113,6 +113,14 @@ class NewGameViewController: UIViewController {
     private func showCancelBarButtonItem(){
         navigationItem.leftBarButtonItem?.tintColor = UIColor.navigationBarButtonTextColor
         navigationItem.leftBarButtonItem?.isEnabled = true
+    }
+    
+    private func addObservers(){
+        NotificationCenter.default.addObserver(self, selector: #selector(changeActivityOfStartGameAndCancelButton), name: .playersTableViewRowWasDeleted, object: nil)
+    }
+    
+    private func removeOnservers(){
+        NotificationCenter.default.removeObserver(self, name: .playersTableViewRowWasDeleted, object: nil)
     }
     
     //MARK: - selectors
@@ -127,15 +135,24 @@ class NewGameViewController: UIViewController {
     }
     
     @objc private func startButtonTapped(){
-        guard GameModel.shared.allPlayers.count > 0 else {return}
         navigationController?.pushViewController(GameProcessViewController(), animated: true)
         GameModel.shared.gameIsGoingOn = true
+        let newPlayersScores = GameModel.shared.allPlayers.reduce(into: [String:[Int]](), {$0[$1] = [0]} )
+        GameModel.shared.playersScores = newPlayersScores
     }
     
-    @objc private func changeActivityOfStartButton(){
-        print(GameModel.shared.allPlayers.count)
-        if GameModel.shared.allPlayers.count == 0 { StartGameButton.isEnabled = false }
-        else { StartGameButton.isEnabled = true }
+    @objc private func changeActivityOfStartGameAndCancelButton(){
+        if GameModel.shared.allPlayers.count == 0 {
+            startGameButton.isEnabled = false
+            hideCancelBarButtonItem()
+        }
+        else  if !GameModel.shared.gameIsGoingOn {
+            startGameButton.isEnabled = true
+            hideCancelBarButtonItem()
+        } else {
+            startGameButton.isEnabled = true
+            showCancelBarButtonItem()
+        }
     }
 }
 

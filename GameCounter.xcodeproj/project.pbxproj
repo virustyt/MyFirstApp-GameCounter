@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -307,6 +307,8 @@
 			dependencies = (
 			);
 			name = GameCounter;
+			packageProductDependencies = (
+			);
 			productName = GameCounter;
 			productReference = 8432A10726D7D20500845006 /* GameCounter.app */;
 			productType = "com.apple.product-type.application";
@@ -334,6 +336,9 @@
 				Base,
 			);
 			mainGroup = 8432A0FE26D7D20500845006;
+			packageReferences = (
+				848A734626FF356E00622354 /* XCRemoteSwiftPackageReference "ShowTime" */,
+			);
 			productRefGroup = 8432A10826D7D20500845006 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -591,6 +596,17 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		848A734626FF356E00622354 /* XCRemoteSwiftPackageReference "ShowTime" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/KaneCheshire/ShowTime.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.5.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
 	};
 	rootObject = 8432A0FF26D7D20500845006 /* Project object */;
 }

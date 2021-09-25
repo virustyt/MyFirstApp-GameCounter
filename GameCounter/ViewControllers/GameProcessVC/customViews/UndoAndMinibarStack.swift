@@ -28,20 +28,7 @@ class UndoAndMinibarStack: UIStackView {
             return button
         }()
 
-    lazy var playersNamesMinibar: UILabel = {
-          let label = UILabel()
-            let attributes: [NSAttributedString.Key : Any] = [.foregroundColor: UIColor(red: 0.231, green: 0.231, blue: 0.231, alpha: 1),
-                                                              .font: UIFont(name: "nunito-extrabold", size: 20) ?? UIFont.systemFont(ofSize: 20)]
-            label.textAlignment = .center
-            var minibarText = ""
-            for playerName in GameModel.shared.allPlayers {
-                minibarText += String(playerName.first!) + " "
-            }
-            label.attributedText = NSAttributedString(string: minibarText, attributes: attributes)
-            label.setContentHuggingPriority(.defaultLow, for: .horizontal)
-            return label
-        }()
-    
+    private var playersNamesMinibar = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -51,10 +38,23 @@ class UndoAndMinibarStack: UIStackView {
         alignment = .center
         translatesAutoresizingMaskIntoConstraints = false
         setWhiteColorToCharachter(index: 0)
+        loadLettersToMiniBar()
     }
     
     required init(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func loadLettersToMiniBar(){
+        let attributes: [NSAttributedString.Key : Any] = [.foregroundColor: UIColor(red: 0.231, green: 0.231, blue: 0.231, alpha: 1),
+                                                          .font: UIFont(name: "nunito-extrabold", size: 20) ?? UIFont.systemFont(ofSize: 20)]
+        playersNamesMinibar.textAlignment = .center
+        var minibarText = ""
+        for playerName in GameModel.shared.allPlayers {
+            minibarText += String(playerName.first!) + " "
+        }
+        playersNamesMinibar.attributedText = NSAttributedString(string: minibarText, attributes: attributes)
+        playersNamesMinibar.setContentHuggingPriority(.defaultLow, for: .horizontal)
     }
     
 }

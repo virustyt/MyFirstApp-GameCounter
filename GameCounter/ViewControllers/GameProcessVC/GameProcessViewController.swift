@@ -131,6 +131,7 @@ class GameProcessViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         scoreCollectionViewController.collectionView.reloadData()
+        undoAndMiibarStack.loadLettersToMiniBar()
         guard let layout = scoreCollectionViewController.collectionViewLayout as? ScoresCollectionViewFlowLayout
         else {return}
         layout.numberOfCellInCenter = GameModel.shared.currentPlayer

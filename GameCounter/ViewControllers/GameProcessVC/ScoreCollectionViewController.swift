@@ -90,8 +90,6 @@ class ScoreCollectionViewController: UICollectionViewController, UICollectionVie
         return UIEdgeInsets(top: 0, left: leftInset, bottom: 0, right: leftInset)
     }
     
-    
-    
     //MARK: - selectors
 
     //MARK: - public funtions

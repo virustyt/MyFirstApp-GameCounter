@@ -35,8 +35,10 @@ class ScoresTableViewController: UITableViewController {
                                                             .foregroundColor: UIColor.white]
         let playerName = GameModel.shared.allPlayers[indexPath.item]
         let playersScore = GameModel.shared.playersScores[playerName]?.last ?? 0
+        print(GameModel.shared.playersScores.description)
+        let signedPlayersScore = playersScore > 0 ? "+\(playersScore)" : "\(playersScore)"
         cell.textLabel?.attributedText = NSAttributedString(string: playerName, attributes: textAtributes)
-        cell.detailTextLabel?.attributedText = NSAttributedString(string: "\(playersScore)", attributes: textAtributes)
+        cell.detailTextLabel?.attributedText = NSAttributedString(string: signedPlayersScore, attributes: textAtributes)
         cell.backgroundColor = UIColor.cellBackgroundColor
         
         return cell

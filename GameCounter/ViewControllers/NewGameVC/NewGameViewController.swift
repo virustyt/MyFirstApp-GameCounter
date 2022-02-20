@@ -142,6 +142,7 @@ class NewGameViewController: UIViewController {
         if GameModel.shared.allPlayers.count == 0 {
             startGameButton.isEnabled = false
             hideCancelBarButtonItem()
+            GameModel.shared.gameIsGoingOn = false
         }
         else  if GameModel.shared.gameIsGoingOn == false{
             startGameButton.isEnabled = true

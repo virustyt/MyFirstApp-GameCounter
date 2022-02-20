@@ -22,6 +22,7 @@ class ResultsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .black
         addSubviews()
         configureConstraints()
         configureNavigationItems()

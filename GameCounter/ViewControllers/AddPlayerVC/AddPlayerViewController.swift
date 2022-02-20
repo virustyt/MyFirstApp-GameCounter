@@ -34,6 +34,7 @@ class AddPlayerViewController: UIViewController{
         configureNavigationItem()
         configureSubviews()
         configureLayout()
+        view.backgroundColor = .black
     }
     
     private func configureNavigationItem() {
